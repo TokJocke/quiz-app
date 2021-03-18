@@ -25,6 +25,7 @@ export function rounds(roundTime, nrOfRounds) {
             console.log("rounderTimer stoped")
             if(playerChoice() == true) {
                 console.log("WINNER TRUE TRUE TRUE")
+                nextSetBtn(roundTime, nrOfRounds)
                 givePoints()
             }
             else if(playerChoice() == false) {
@@ -36,11 +37,13 @@ export function rounds(roundTime, nrOfRounds) {
                         lockGuess()
                     }, 3000);
                 }
-            }       
+                else {
+                    nextSetBtn(roundTime, nrOfRounds)
+                }
+            }    
         }
     }, 1000);    
 }
-
 
 function playerChoice() {
     let playerChoice = Number(document.getElementsByClassName("playerInput")[0].value)
@@ -81,41 +84,6 @@ function givePoints() {
     pointCounter.innerText = points
 }
 
-
-                        //HUR LÅNG???
-
-
-
-/* export function roundAmount(nrOfRounds, roundTime) {
-     roundTimer(roundTime)
-     winner = false
-    let currentRound = document.getElementsByClassName("currentRound")[0]
-    round = 1
-    let delay = (roundTime + 1) * 1000 
-    currentRound.innerText = "round: " + round
-        let roundAmount = setInterval(() => {
-            if(winner == false) {
-                console.log("winner false in roundamount")
-                roundTimer(roundTime)
-                lockGuess()
-                round++
-                currentRound.innerText = "round: " + round
-                if(round === nrOfRounds) {
-                    clearInterval(roundAmount)
-                    nextSetBtn(roundTime, nrOfRounds)
-                }
-            }
-            else if(winner == true) {
-                clearInterval(roundAmount)
-                console.log("winner true")
-                nextSetBtn(roundTime, nrOfRounds)
-            }
-    
-        }, delay)
-}  */
-
-
-
 export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
     gameSet++
     roundTimer(nrOfRounds, roundTime)
@@ -123,50 +91,32 @@ export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
     if(gameSet == setAmount) {
         console.log("finished")
     }
-
 }
-
-
-
-
-
-
-
-
-
 
 function lockGuess() {
     console.log("running lockGuess")
     const playerPick = document.getElementsByClassName("playerInput")[0]
+    console.log(playerPick)
     if(!playerPick.disabled) {
         playerPick.disabled = "true"
     }
     else {
         playerPick.disabled = ""
+        playerPick.value = ""
+        playerPick.focus()
     }
 }
 
-
-
 function nextSetBtn(roundTime, nrOfRounds) {
-    lockGuess()
     let playerDiv = document.getElementsByClassName("playerDiv")[0]
-    let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)
-    let delay = roundTime * 1000
-
-    setTimeout(() => {
-        
-        let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)
+    let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)   
+    let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)
         nextSetBtn.innerText = "Next set"
         nextSetBtn.addEventListener("click", () => {
+            lockGuess()
             nextSetBtnWrap.innerHTML = null
-            roundTimer(nrOfRounds, roundTime)   
+            rounds(nrOfRounds, roundTime)   
             correctAnswer = randomNr(1, 20)
             console.log("correct answer: ", correctAnswer)
-         })
-        
-      
-
-
-    }, delay);
+         }) 
 } 
