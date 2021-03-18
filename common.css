@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+/* GamePage */
+
+.playerDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerInput {
+    width: 30vw;
+    height: 7vh;
+    font-size: 1.5rem;
+}
+
+.confirmBtn {
+
+}
+
+.pointCounter {
+
+}
+
+.timer {
+    font-size: 2rem;
+}  
+
+.currentRound {
+
+}
+
+.highOrLow{
+    
+}
