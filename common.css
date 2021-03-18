@@ -42,6 +42,32 @@ body {
     margin-top: 30px;
     border: none;
     font-size: 25px;
+    border-radius: 15px;
+    opacity: 0.7;
+
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  
+    40% {
+      -webkit-transform: translateY(-20px);
+      transform: translateY(-20px);
+    }
+  
+    80% {
+      -webkit-transform: translateY(-10px);
+      transform: translateY(-10px);
+    }
+}
+
+.startBtn:hover {
+    opacity:1;
+    cursor: pointer;
+    animation: bounce 1s;
 }
 
 .parentDiv {
@@ -49,6 +75,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-direction: column;
+    height: 60vh;
 }
 
 
