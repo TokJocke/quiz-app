@@ -1,121 +1,130 @@
-import { randomNr } from "./logic.js"
+import { createElement, randomNr } from "./logic.js"
 
 //Some global variables to keep track of things
 let correctAnswer = randomNr(1, 20)
-let currentGuess = 0
-let currentRound = 1
+let round = 1
+let gameSet = 0
 let points = 0
 
 
-export function playTurn() {
+console.log(correctAnswer)
 
-    currentGuess++
-    roundAmount(5, 5)
-
-/*     playerChoice()
-    checkNrOfGuess() */
+export function rounds(roundTime, nrOfRounds) {
+    let playerPick = Number(document.getElementsByClassName("playerInput")[0].value)
+    let timerElement = document.getElementsByClassName("timer")[0]
+    //roundCount == varje sekund RoundTime == totalTid för runda
+    let roundCount = roundTime
+    timerElement.innerText = roundTime
+    let gameTimer = setInterval(function(){  
+        roundCount -= 1
+        timerElement.innerText = roundCount
+        if(roundCount == 0){
+            lockGuess()
+            clearInterval(gameTimer);
+            timerElement.innerText = "Timeout"
+            console.log("rounderTimer stoped")
+            if(playerChoice() == true) {
+                console.log("WINNER TRUE TRUE TRUE")
+                givePoints()
+            }
+            else if(playerChoice() == false) {
+                console.log(round) 
+                round++
+                if(round <= nrOfRounds) {
+                    setTimeout(() => {
+                        rounds(roundTime, nrOfRounds)
+                        lockGuess()
+                    }, 3000);
+                }
+            }       
+        }
+    }, 1000);    
 }
+
 
 function playerChoice() {
     let playerChoice = Number(document.getElementsByClassName("playerInput")[0].value)
+    console.log("playerChoiceFunc running")
     let highOrLowEle = document.getElementsByClassName("highOrLow")[0]
     console.log("player: ", playerChoice)
     if(playerChoice == correctAnswer) {
-        givePoints()
-        currentRound++
-        currentGuess = 0
-        correctAnswer = randomNr(1, 20)
-        console.log("correct")
+        highOrLowEle.innerText = "correct"
+        return true
     }
     else if(playerChoice < correctAnswer) {
         highOrLowEle.innerText = "higher"
+        return false
     }
     else if(playerChoice > correctAnswer) {
         highOrLowEle.innerText = "lower"
-    }
-}
-
-
-function checkNrOfGuess() {
-    if(currentGuess >= 5) {
-        correctAnswer = randomNr(1, 20)
-        currentRound++
-        currentGuess = 0
-        console.log("fail, new round")
+        return false
     }
 }
 
 function givePoints() {
     const pointCounter = document.getElementsByClassName("pointCounter")[0]
-    if(currentGuess === 1) {
+    if(round === 1) {
         points += 50;
     }
-    else if(currentGuess === 2) {
+    else if(round === 2) {
         points += 40;
     }
-    else if(currentGuess === 3) {
+    else if(round === 3) {
         points += 30;
     }
-    else if(currentGuess === 4) {
+    else if(round === 4) {
         points += 20;
     }
-    else if(currentGuess === 5) {
+    else if(round === 5) {
         points += 10;
     }
     pointCounter.innerText = points
 }
 
 
+                        //HUR LÅNG???
 
 
 
-//Sätter ny correctanswer på rad 26 när playchoice == correctanswer innan den hinner till if på rad 78
-
-function roundTimer(roundTime) {
-    let playerPick = Number(document.getElementsByClassName("playerInput")[0].value)
-    let timerElement = document.getElementsByClassName("timer")[0]
-    
-    
-    timerElement.innerText = roundTime
-    
-    let gameTimer = setInterval(function(){
-        roundTime -= 1
-        timerElement.innerText = roundTime
-        if(roundTime === 0 || playerPick == correctAnswer){
-            clearInterval(gameTimer);
-            timerElement.innerText = ""
-            console.log("rounderTimer stoped")
-            lockGuess()
-            playerChoice()
-
-        }
-    }, 1000);    
-}
-
-
-
-export function roundAmount(nrOfRounds, roundTime) {
-    roundTimer(roundTime)
+/* export function roundAmount(nrOfRounds, roundTime) {
+     roundTimer(roundTime)
+     winner = false
     let currentRound = document.getElementsByClassName("currentRound")[0]
-    let round = 1
-    let delay = (roundTime + 5) * 1000 
+    round = 1
+    let delay = (roundTime + 1) * 1000 
     currentRound.innerText = "round: " + round
+        let roundAmount = setInterval(() => {
+            if(winner == false) {
+                console.log("winner false in roundamount")
+                roundTimer(roundTime)
+                lockGuess()
+                round++
+                currentRound.innerText = "round: " + round
+                if(round === nrOfRounds) {
+                    clearInterval(roundAmount)
+                    nextSetBtn(roundTime, nrOfRounds)
+                }
+            }
+            else if(winner == true) {
+                clearInterval(roundAmount)
+                console.log("winner true")
+                nextSetBtn(roundTime, nrOfRounds)
+            }
+    
+        }, delay)
+}  */
 
-    let roundAmount = setInterval(() => {
-        roundTimer(roundTime)
-        lockGuess()
-        round++
-        currentRound.innerText = "round: " + round
-        if(round === nrOfRounds) {
-            clearInterval(roundAmount)
-            console.log("intervall cleared")
-        }
 
 
-    }, delay)
-} 
+export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
+    gameSet++
+    roundTimer(nrOfRounds, roundTime)
 
+    if(gameSet == setAmount) {
+        console.log("finished")
+    }
 
+}
 
 
 
@@ -127,17 +136,37 @@ export function roundAmount(nrOfRounds, roundTime) {
 
 
 function lockGuess() {
+    console.log("running lockGuess")
     const playerPick = document.getElementsByClassName("playerInput")[0]
-/*     const confirmBtn = document.getElementsByClassName("confirmBtn")[0]
-    console.log(confirmBtn) */
     if(!playerPick.disabled) {
         playerPick.disabled = "true"
-/*         confirmBtn.style.display = "none"
- */    }
+    }
     else {
         playerPick.disabled = ""
-/*         confirmBtn.style.display = "Inline-block"
- */    }
-    
-
+    }
 }
+
+
+
+function nextSetBtn(roundTime, nrOfRounds) {
+    lockGuess()
+    let playerDiv = document.getElementsByClassName("playerDiv")[0]
+    let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)
+    let delay = roundTime * 1000
+
+    setTimeout(() => {
+        
+        let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)
+        nextSetBtn.innerText = "Next set"
+        nextSetBtn.addEventListener("click", () => {
+            nextSetBtnWrap.innerHTML = null
+            roundTimer(nrOfRounds, roundTime)   
+            correctAnswer = randomNr(1, 20)
+            console.log("correct answer: ", correctAnswer)
+         })
+        
+      
+
+
+    }, delay);
+} 
