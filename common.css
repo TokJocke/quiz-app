@@ -22,6 +22,7 @@ body {
     font-size: 30px;
     color: black;
     margin: 10px;
+    cursor: pointer;
 }
 
 #dropdown {
@@ -45,23 +46,6 @@ body {
     border-radius: 15px;
     opacity: 0.7;
 
-}
-
-@keyframes bounce {
-    0%, 20%, 60%, 100% {
-      -webkit-transform: translateY(0);
-      transform: translateY(0);
-    }
-  
-    40% {
-      -webkit-transform: translateY(-20px);
-      transform: translateY(-20px);
-    }
-  
-    80% {
-      -webkit-transform: translateY(-10px);
-      transform: translateY(-10px);
-    }
 }
 
 .startBtn:hover {
@@ -118,19 +102,35 @@ body {
 
 
 .dropbtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: white;
     color: black;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-    width: 25vw;
-  }
+    width: 10vw;
+    height: 100%;
+    outline: 0;
+}
+
+.dropbtn:active {
+    box-shadow: none;  
+    box-shadow: inset 0px 0px 10px 0px black; 
+}
   
   .dropbtn:hover, .dropbtn:focus {
     background-color: rgba(0, 0, 0, 0.2);
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  .dropbtn:focus {
+    border-left: solid 3px  lightgreen;
+    color: coral;
+    font-weight: bold;
   }
   
   .dropdown {
@@ -144,7 +144,7 @@ body {
     background-color: #f1f1f1;
     border: solid 1px gray;
     border-radius: 3px;
-    width: 25vw;
+    left: -25vw;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -158,3 +158,14 @@ body {
   }
   
   .show {display: block;}
+
+  @media only screen and (max-width: 650px) {
+    .dropbtn {
+      width: 25vw;
+    }
+    .dropdown-content {
+        left: -75vw;
+        width: 100vw;
+        height: 50vh;
+    }
+  }
