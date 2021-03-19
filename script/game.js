@@ -1,9 +1,9 @@
 import { createElement } from "./logic.js"
-import {  rounds } from "./gameLogic.js"
+import {  gameSetAmount } from "./gameLogic.js"
 
 export function startGame() {
     createGamePage()
-    rounds(5, 2)
+    gameSetAmount(5, 5, 3)
 }
 
 function createGamePage() {

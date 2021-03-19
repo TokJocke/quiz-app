@@ -24,12 +24,13 @@ export function rounds(roundTime, nrOfRounds) {
             timerElement.innerText = "Timeout"
             console.log("rounderTimer stoped")
             if(playerChoice() == true) {
-                console.log("WINNER TRUE TRUE TRUE")
+                console.log("WINNER TRUE TRUE TRUE", round)
                 nextSetBtn(roundTime, nrOfRounds)
                 givePoints()
+                round = 1
             }
             else if(playerChoice() == false) {
-                console.log(round) 
+                console.log("round =", round) 
                 round++
                 if(round <= nrOfRounds) {
                     setTimeout(() => {
@@ -39,6 +40,7 @@ export function rounds(roundTime, nrOfRounds) {
                 }
                 else {
                     nextSetBtn(roundTime, nrOfRounds)
+                    round = 1
                 }
             }    
         }
@@ -86,7 +88,7 @@ function givePoints() {
 
 export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
     gameSet++
-    roundTimer(nrOfRounds, roundTime)
+    rounds(nrOfRounds, roundTime)
 
     if(gameSet == setAmount) {
         console.log("finished")
