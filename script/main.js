@@ -5,12 +5,13 @@ window.addEventListener("load", initSite)
 
 
 function initSite() {
-    createTestBtn()
- 	callBtn()
+    createIndexContent()
+    callBtn()
+    clickLogo()
 }
 
 
-function createTestBtn() {
+function createIndexContent() {
     let parentDiv = document.createElement("div")
     parentDiv.classList = "parentDiv"
     let nameInput = document.createElement("input")
@@ -46,4 +47,14 @@ function myFunction() {
 function callBtn() {
     let x = document.getElementsByClassName("dropbtn")[0]
     x.addEventListener("click", myFunction)
+}
+
+function clickLogo() {
+    let x = document.getElementById("logo")
+    let main = document.getElementsByTagName("main")[0]
+    x.addEventListener("click", () => {
+        main.innerHTML = null
+        createIndexContent()
+
+    } )
 }
