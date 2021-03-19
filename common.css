@@ -67,7 +67,7 @@ body {
 .startBtn:hover {
     opacity:1;
     cursor: pointer;
-    animation: bounce 1s;
+    animation: bounce 0.5s;
 }
 
 .parentDiv {

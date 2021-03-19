@@ -1,9 +1,9 @@
-import { randomNr, createElement } from "./logic.js"
-import { playTurn, roundAmount } from "./gameLogic.js"
+import { createElement } from "./logic.js"
+import {  gameSetAmount } from "./gameLogic.js"
 
 export function startGame() {
     createGamePage()
-    roundAmount(5, 5)
+    gameSetAmount(5, 5, 3)
 }
 
 function createGamePage() {
@@ -20,6 +20,7 @@ function createGamePage() {
     let timer = createElement("p", "timer", playerDiv) 
     let currentRound = createElement("p", "currentRound", playerDiv)
     let highOrLow = createElement("P", "highOrLow", playerDiv)
+    playerInput.focus()
 
 
     playerInput.placeholder = "chose a number between 1-20"
