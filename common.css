@@ -1,0 +1,188 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: coral;
+    margin: 0;
+}
+
+/* Header content */
+
+.header {
+    height: 50px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    box-shadow: 0 9px 5px -4px black;
+}
+
+#logo {
+    font-size: 30px;
+    color: black;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#dropdown {
+    color: black;
+    margin: 10px;
+    font-size: 20px;
+    
+}
+
+
+/* GamePage */
+
+.startBtn {
+    background-color: lightgreen;
+    color: white;
+    height: 70px;
+    width: 170px;
+    margin-top: 30px;
+    border: none;
+    font-size: 25px;
+    border-radius: 15px;
+    opacity: 0.7;
+
+}
+
+.startBtn:hover {
+    opacity:1;
+    cursor: pointer;
+    animation: bounce 0.5s;
+}
+
+.parentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: 60vh;
+}
+
+
+.playerDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerInput {
+    width: 90%;
+    height: 7vh;
+    font-size: 1.5rem;
+    margin-top: 40px;
+}
+
+.confirmBtn {
+
+}
+
+.pointCounter {
+
+}
+
+.timer {
+    font-size: 2rem;
+}  
+
+.currentRound {
+    font-size: 20px;
+    
+}
+
+.highOrLow{
+    font-size: 20px;
+    
+}
+
+
+.dropbtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 10vw;
+    height: 100%;
+    outline: 0;
+}
+
+.dropbtn:active {
+    box-shadow: none;  
+    box-shadow: inset 0px 0px 10px 0px black; 
+}
+  
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  .dropbtn:focus {
+    border-left: solid 3px  lightgreen;
+    color: coral;
+    font-weight: bold;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    border: solid 1px gray;
+    border-radius: 3px;
+    left: -25vw;
+    overflow: auto;
+    box-shadow: 0px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .show {display: block;}
+
+  @media only screen and (max-width: 650px) {
+    .dropbtn {
+      width: 25vw;
+    }
+    .dropdown-content {
+        left: -75vw;
+        width: 100vw;
+        height: 50vh;
+    }
+  }
+
+  .levelCheck{
+      margin-top:20px;
+      display: flex;
+      flex-direction: row;
+  }
+  .levelInput{
+      width:20px;
+      height:20px;
+      margin:8px;
+  }
+  .checkTitle{
+      margin-top: 0px;
+      margin-right: 10px;
+      font-size: 2em;
+      font-family: Arial, Helvetica, sans-serif;
+  }
