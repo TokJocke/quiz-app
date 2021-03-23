@@ -1,4 +1,4 @@
-import { createElement } from "./logic.js"
+import { createElement, makeReq } from "./logic.js"
 import { startGame } from "./game.js"
 
 window.addEventListener("load", initSite)
@@ -8,6 +8,7 @@ function initSite() {
     createIndexContent()
     callBtn()
     clickLogo()
+    GetHighscoreList()
 }
 
 
@@ -15,6 +16,7 @@ function createIndexContent() {
     let parentDiv = document.createElement("div")
     parentDiv.classList = "parentDiv"
     let nameInput = document.createElement("input")
+    nameInput.id = "nameInput"
     nameInput.placeholder = "What's your player name?"
     nameInput.style.height = "35px"
     nameInput.style.width = "50%"
@@ -55,6 +57,43 @@ function clickLogo() {
     x.addEventListener("click", () => {
         main.innerHTML = null
         createIndexContent()
+        GetHighscoreList()
 
     } )
 }
+
+async function GetHighscoreList() {
+  let ordList = document.createElement("ol")
+  let headline = document.createElement("h2")
+  headline.innerText = "Highscore"
+  ordList.append(headline)
+  ordList.style.width = "100vw"
+  ordList.style.display = "flex"
+  ordList.style.flexDirection = "column"
+  ordList.style.justifyContent = "center"
+  ordList.style.alignItems = "center"
+  const response = await makeReq("./api/dbReciever.php", "GET")
+  console.log("ARRAY =", response)
+  response.forEach(user => {
+    let listItem = document.createElement("li")
+    listItem.style.margin = "3px"
+    listItem.innerText = user.name + "," + " " + user.highscore + " p"
+    ordList.appendChild(listItem)
+  });
+  let main = document.getElementsByTagName("main")[0]
+  main.append(ordList)
+}
+
+//testknapp
+let x = document.getElementById("tstbtn")
+x.addEventListener("click", postName)
+
+async function postName() {
+  let input = document.getElementById("nameInput").value
+  let body = new FormData()
+  body.set("nameInput", input)
+  const response = await makeReq("./api/dbReciever.php", "POST", body)
+  console.log(response)
+  
+}
+
