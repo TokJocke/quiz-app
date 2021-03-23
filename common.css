@@ -159,6 +159,29 @@ body {
   
   .show {display: block;}
 
+/* BOT */
+
+.botDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid black;
+    height: 10vh;
+    margin-bottom: 2vh;
+
+}
+
+.botImgDiv {
+    display: flex;
+    height: 100%;
+}
+
+.botImg {
+
+}
+
+
   @media only screen and (max-width: 650px) {
     .dropbtn {
       width: 25vw;

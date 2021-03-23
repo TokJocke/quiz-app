@@ -1,4 +1,5 @@
 import { createElement, randomNr } from "./logic.js"
+import { initBot } from "./bot.js"
 
 //Some global variables to keep track of things
 let correctAnswer = randomNr(1, 20)
@@ -20,23 +21,23 @@ export function rounds(roundTime, nrOfRounds) {
         timerElement.innerText = roundCount
         if(roundCount == 0){
             lockGuess()
+            let botGuess = initBot(2, correctAnswer)
             clearInterval(gameTimer);
             timerElement.innerText = "Timeout"
             console.log("rounderTimer stoped")
-            if(playerChoice() == true) {
+            if(playerChoice() == true || botGuess == true) {
                 console.log("WINNER TRUE TRUE TRUE", round)
                 nextSetBtn(roundTime, nrOfRounds)
                 givePoints()
                 round = 1
             }
             else if(playerChoice() == false) {
-                console.log("round =", round) 
                 round++
                 if(round <= nrOfRounds) {
                     setTimeout(() => {
                         rounds(roundTime, nrOfRounds)
                         lockGuess()
-                    }, 3000);
+                    }, 8000);
                 }
                 else {
                     nextSetBtn(roundTime, nrOfRounds)
@@ -49,9 +50,8 @@ export function rounds(roundTime, nrOfRounds) {
 
 function playerChoice() {
     let playerChoice = Number(document.getElementsByClassName("playerInput")[0].value)
-    console.log("playerChoiceFunc running")
     let highOrLowEle = document.getElementsByClassName("highOrLow")[0]
-    console.log("player: ", playerChoice)
+    console.log("playerChoiceFunc running")
     if(playerChoice == correctAnswer) {
         highOrLowEle.innerText = "correct"
         return true
@@ -98,7 +98,6 @@ export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
 function lockGuess() {
     console.log("running lockGuess")
     const playerPick = document.getElementsByClassName("playerInput")[0]
-    console.log(playerPick)
     if(!playerPick.disabled) {
         playerPick.disabled = "true"
     }
@@ -119,6 +118,5 @@ function nextSetBtn(roundTime, nrOfRounds) {
             nextSetBtnWrap.innerHTML = null
             rounds(nrOfRounds, roundTime)   
             correctAnswer = randomNr(1, 20)
-            console.log("correct answer: ", correctAnswer)
          }) 
 } 
