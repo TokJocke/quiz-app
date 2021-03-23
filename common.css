@@ -146,7 +146,7 @@ body {
     border-radius: 3px;
     left: -25vw;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
   
@@ -159,6 +159,29 @@ body {
   
   .show {display: block;}
 
+/* BOT */
+
+.botDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid black;
+    height: 10vh;
+    margin-bottom: 2vh;
+
+}
+
+.botImgDiv {
+    display: flex;
+    height: 100%;
+}
+
+.botImg {
+
+}
+
+
   @media only screen and (max-width: 650px) {
     .dropbtn {
       width: 25vw;
@@ -168,4 +191,21 @@ body {
         width: 100vw;
         height: 50vh;
     }
+  }
+
+  .levelCheck{
+      margin-top:20px;
+      display: flex;
+      flex-direction: row;
+  }
+  .levelInput{
+      width:20px;
+      height:20px;
+      margin:8px;
+  }
+  .checkTitle{
+      margin-top: 0px;
+      margin-right: 10px;
+      font-size: 2em;
+      font-family: Arial, Helvetica, sans-serif;
   }

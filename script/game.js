@@ -1,9 +1,11 @@
 import { createElement } from "./logic.js"
 import {  gameSetAmount } from "./gameLogic.js"
+import { renderBot } from "./bot.js"
 
 export function startGame() {
     createGamePage()
     gameSetAmount(5, 5, 3)
+    renderBot(2)
 }
 
 function createGamePage() {

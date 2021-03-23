@@ -15,6 +15,7 @@ function initSite() {
 function createIndexContent() {
     let parentDiv = document.createElement("div")
     parentDiv.classList = "parentDiv"
+
     let nameInput = document.createElement("input")
     nameInput.id = "nameInput"
     nameInput.placeholder = "What's your player name?"
@@ -22,11 +23,36 @@ function createIndexContent() {
     nameInput.style.width = "50%"
     nameInput.style.border = "none"
     nameInput.style.borderRadius = "5px"
+    
+    let levelCheck = createElement("div","levelCheck",parentDiv )
+    
+    let easycheck = createElement("input","levelInput",levelCheck)
+    easycheck.id ="easy"
+    easycheck.type = "radio"
+    easycheck.name ="radio"
+    let easycheckTitle = createElement("p","checkTitle",levelCheck)
+    easycheckTitle.innerText="Easy"
+
+    let normalcheck = createElement("input","levelInput",levelCheck)
+    normalcheck.id ="normal"
+    normalcheck.type = "radio"
+    normalcheck.name ="radio"
+    let normalcheckTitle = createElement("p","checkTitle",levelCheck)
+    normalcheckTitle.innerText="Normal"
+    let hardcheck = createElement("input","levelInput",levelCheck)
+    hardcheck.id ="hard"
+    hardcheck.type = "radio"
+    hardcheck.name ="radio"
+    let hardcheckTitle = createElement("p","checkTitle",levelCheck)
+    hardcheckTitle.innerText="Hard"
+    
     let main = document.getElementsByTagName("main")[0]
+    
     let startGameBtn = createElement("button", "startBtn", main)
     startGameBtn.innerText = "Start Game"
     startGameBtn.addEventListener("click", startGame)
-    parentDiv.append(nameInput, startGameBtn)
+
+    parentDiv.append(nameInput, levelCheck,startGameBtn)
     main.appendChild(parentDiv)
 }
 
