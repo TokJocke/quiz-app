@@ -2,15 +2,18 @@ import { createElement, randomNr } from "./logic.js"
 
 let botArray = [{
     name: "gulBot",
-    img: ".././assets/gul"
+    img: ".././assets/gul",
+    guess: ""
 },
     {
     name: "gronBot",
-    img: ".././assets/gron"
+    img: ".././assets/gron",
+    guess: ""
     },
     {
     name: "turkos",
-    img: ".././assets/turkos"
+    img: ".././assets/turkos",
+    guess: ""
 }]
 
 
@@ -22,42 +25,71 @@ export function renderBot(amount) {
         let botImg = createElement("img", "botImg", botImgDiv)
         let botTextResponse = createElement("p", "botTextResponse", botDiv)
         let botTextChoice = createElement("p", "botTextChoice", botDiv)
-        
         botImg.src = botArray[i].img + "-glad.png"
-
     }
 
 }
+ 
+export function botGuess(correctAnswer) {
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    for(let i = 0; i < player.level; i++) {
+        let botGuess = randomNr(1, 20)
+        botArray[i].guess = botGuess
+        console.log(botGuess)
+    }
+    sessionStorage.setItem("botInfo", JSON.stringify(botArray))
+    botInteraction(correctAnswer)
+}
+ 
+export function checkGuess(correctAnswer) {
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))    
+    let player = JSON.parse(sessionStorage.getItem("player"))
 
-let i = 0
-export function initBot(amount, correctAnswer) {
-    setTimeout(function() {  
-        if(botMakeGuess(amount, correctAnswer, i) == true) {
+    console.log(botInfo)
+    for(let i = 0; i < player.level; i++){
+        if(botInfo[i].guess == correctAnswer) {
+            console.log("in checkGuess()")
             return true
-        }  
-        i++;                   
-        if (i < amount) {          
-            initBot(amount, correctAnswer);             
-        } 
-        else {
-            i = 0
-        }                      
-      }, randomNr(0, 4)*1000)
+        }
+    }
+}
 
 
-} 
+async function botInteraction(correctAnswer) { 
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
+    let player = JSON.parse(sessionStorage.getItem("player"))
+
+    console.log(botInfo)
+    const timer = ms => new Promise(res => setTimeout(res, ms))
+        for (var i = 0; i < player.level; i++) {
+            
+            let botTextChoice = document.getElementsByClassName("botTextChoice")[i]
+            botTextChoice.innerText = botInfo[i].guess
+            
+            if(botInfo[i].guess == correctAnswer) {
+                let botImgDiv = document.getElementsByClassName("botImgDiv")[i]
+                botImgDiv.style.animation = "bounce 0.5s"
+                break
+            }
+            await timer(randomNr(1, 3) * 1000); 
+        }
+
+}
 
 
 
-export function botMakeGuess(amount, correctAnswer, i) {
+
+
+
+/*  
+export function botCheckGuess() {
    // for(let i = 0; i < amount; i++) {
-            let botGuess = randomNr(1, 20) //correctAnswer för buggfix
             let botTextChoice = document.getElementsByClassName("botTextChoice")[i]
             let botTextResponse = document.getElementsByClassName("botTextResponse")[i]
             botTextChoice.innerText = botGuess
 
             if(botGuess == correctAnswer) {
-    
+                botTextResponse.innerText = "Winner"
                 return true
             }
             else if(botGuess < correctAnswer) {
@@ -70,9 +102,8 @@ export function botMakeGuess(amount, correctAnswer, i) {
                 botTextResponse.innerText = "lower"
                 return false
             }
-
-
-
+}
+ */
 
 
 
@@ -89,7 +120,7 @@ export function botMakeGuess(amount, correctAnswer, i) {
                 return false
             } */
             //   }
-        }
+    
         
         
 /*         
