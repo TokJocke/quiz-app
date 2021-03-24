@@ -9,6 +9,7 @@ function initSite() {
     callBtn()
     clickLogo()
     GetHighscoreList()
+    sessionStorage.clear()
 }
 
 
@@ -24,26 +25,28 @@ function createIndexContent() {
     nameInput.style.border = "none"
     nameInput.style.borderRadius = "5px"
     
-    let levelCheck = createElement("div","levelCheck",parentDiv )
+    let levelCheck = createElement("div", "levelCheck", parentDiv )
     
-    let easycheck = createElement("input","levelInput",levelCheck)
-    easycheck.id ="easy"
+    let easycheck = createElement("input", "levelInput", levelCheck)
+    easycheck.value = 1
     easycheck.type = "radio"
     easycheck.name ="radio"
-    let easycheckTitle = createElement("p","checkTitle",levelCheck)
+    let easycheckTitle = createElement("p", "checkTitle", levelCheck)
     easycheckTitle.innerText="Easy"
-
-    let normalcheck = createElement("input","levelInput",levelCheck)
-    normalcheck.id ="normal"
+    
+    let normalcheck = createElement("input", "levelInput", levelCheck)
+    normalcheck.value = 2
+    normalcheck.checked = true
     normalcheck.type = "radio"
     normalcheck.name ="radio"
-    let normalcheckTitle = createElement("p","checkTitle",levelCheck)
+    let normalcheckTitle = createElement("p", "checkTitle", levelCheck)
     normalcheckTitle.innerText="Normal"
-    let hardcheck = createElement("input","levelInput",levelCheck)
-    hardcheck.id ="hard"
+  
+    let hardcheck = createElement("input", "levelInput", levelCheck)
+    hardcheck.value = 3
     hardcheck.type = "radio"
     hardcheck.name ="radio"
-    let hardcheckTitle = createElement("p","checkTitle",levelCheck)
+    let hardcheckTitle = createElement("p", "checkTitle", levelCheck)
     hardcheckTitle.innerText="Hard"
     
     let main = document.getElementsByTagName("main")[0]
@@ -87,7 +90,7 @@ function clickLogo() {
 
     } )
 }
-
+ 
 async function GetHighscoreList() {
   let ordList = document.createElement("ol")
   let headline = document.createElement("h2")
@@ -108,7 +111,7 @@ async function GetHighscoreList() {
   });
   let main = document.getElementsByTagName("main")[0]
   main.append(ordList)
-}
+} 
 
 //testknapp
 let x = document.getElementById("tstbtn")
@@ -122,4 +125,12 @@ async function postName() {
   console.log(response)
   
 }
+//New page showing result after game
+export function createResultsPage() {
+  main.innerText = null
+  let scoreText = document.createElement("p", "scoreText", main)
+  let highScoreDiv = document.createElement("div", "highScoreDiv", main)
+  
 
+
+}

@@ -1,46 +1,62 @@
-import { createElement, randomNr } from "./logic.js"
-import { initBot } from "./bot.js"
+import { createElement, randomNr, makeReq } from "./logic.js"
+import { botGuess, checkGuess } from "./bot.js"
+import { createResultsPage } from "./main.js"
 
 //Some global variables to keep track of things
 let correctAnswer = randomNr(1, 20)
 let round = 1
-let gameSet = 0
+let gameSet = 1
 let points = 0
-
 
 console.log(correctAnswer)
 
-export function rounds(roundTime, nrOfRounds) {
+export function rounds(nrOfRounds, roundTime) {
     let playerPick = Number(document.getElementsByClassName("playerInput")[0].value)
     let timerElement = document.getElementsByClassName("timer")[0]
+    let setCounter = document.getElementsByClassName("setCounter")[0]
     //roundCount == varje sekund RoundTime == totalTid för runda
     let roundCount = roundTime
     timerElement.innerText = roundTime
+    setCounter.innerText = gameSet
     let gameTimer = setInterval(function(){  
         roundCount -= 1
         timerElement.innerText = roundCount
+        setCounter.innerText = gameSet
         if(roundCount == 0){
             lockGuess()
-            let botGuess = initBot(2, correctAnswer)
             clearInterval(gameTimer);
             timerElement.innerText = "Timeout"
             console.log("rounderTimer stoped")
-            if(playerChoice() == true || botGuess == true) {
+            if(playerChoice() == true) {
                 console.log("WINNER TRUE TRUE TRUE", round)
                 nextSetBtn(roundTime, nrOfRounds)
                 givePoints()
+                gameEnd()
+                gameSet++
                 round = 1
             }
             else if(playerChoice() == false) {
+                botGuess(correctAnswer)
                 round++
-                if(round <= nrOfRounds) {
+
+                // Check if bot guess = correct
+                if(checkGuess(correctAnswer) == true) {
+                    console.log("BOT WINNER TRUE TRUE TRUE", round)
+                    nextSetBtn(roundTime, nrOfRounds)
+                    gameEnd()
+                    gameSet++
+                    round = 1
+                }
+                else if(round <= nrOfRounds) {
                     setTimeout(() => {
                         rounds(roundTime, nrOfRounds)
                         lockGuess()
-                    }, 8000);
+                    }, 9000);
                 }
                 else {
                     nextSetBtn(roundTime, nrOfRounds)
+                    gameEnd()
+                    gameSet++
                     round = 1
                 }
             }    
@@ -67,31 +83,48 @@ function playerChoice() {
 }
 
 function givePoints() {
+    let player = JSON.parse(sessionStorage.getItem("player"))
     const pointCounter = document.getElementsByClassName("pointCounter")[0]
     if(round === 1) {
-        points += 50;
+        points += 50*player.level;
     }
     else if(round === 2) {
-        points += 40;
+        points += 40*player.level;
     }
     else if(round === 3) {
-        points += 30;
+        points += 30*player.level;
     }
     else if(round === 4) {
-        points += 20;
+        points += 20*player.level;
     }
     else if(round === 5) {
-        points += 10;
+        points += 10*player.level;
     }
     pointCounter.innerText = points
 }
-
-export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
-    gameSet++
+/* 
+export function gameSetAmount(nrOfRounds, roundTime) {
+    //gameSet++
     rounds(nrOfRounds, roundTime)
+} */
 
-    if(gameSet == setAmount) {
-        console.log("finished")
+async function gameEnd() {
+let player = JSON.parse(sessionStorage.getItem("player"))
+
+    if(gameSet == player.set) {
+        let nextSetBtn = document.getElementsByClassName("nextSetBtn")[0]
+        let playerInfo = [points, player.name]
+        console.log("inGameEND= ", playerInfo)
+/*         nextSetBtn.style.display = "none"  
+ */
+        console.log("asdasdasdasdasd ", playerInfo)
+        let body = new FormData()
+        body.set("playerInfo", JSON.stringify(playerInfo))
+
+        const playerScore = await makeReq("./api/dbReciever.php", "POST", body)
+
+        console.log(playerScore)
+
     }
 }
 
