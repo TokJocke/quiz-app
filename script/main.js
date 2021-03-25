@@ -81,7 +81,7 @@ function callBtn() {
 }
 
 function clickLogo() {
-    let x = document.getElementById("logo")
+    let x = document.getElementById("logga")
     let main = document.getElementsByTagName("main")[0]
     x.addEventListener("click", () => {
         main.innerHTML = null
