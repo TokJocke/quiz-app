@@ -8,7 +8,7 @@ export function startGame() {
     let player = JSON.parse(sessionStorage.getItem("player"))
 
     if(!player.name) {
-        alert("fyll i ditt namn")
+        alert("Fyll i ditt namn!")
     }
     else {
         createGamePage()
@@ -33,7 +33,7 @@ function createGamePage() {
     let highOrLow = createElement("P", "highOrLow", playerDiv)
     let playerInput = createElement("input", "playerInput", playerDiv)
     playerInput.focus()
-    playerInput.placeholder = "chose a number between 1-20"
+    playerInput.placeholder = "Choose a number between 1-20"
     playerInput.type = "number"
 
     pointCounter.innerText = 0

@@ -72,10 +72,12 @@ body {
 }
 
 .playerInput {
-    width: 90%;
+    width: 70%;
     height: 7vh;
     font-size: 1.5rem;
     margin-top: 40px;
+    border-radius: 15px;
+    background-color: whitesmoke;
 }
 
 .confirmBtn {
@@ -181,6 +183,25 @@ body {
 
 }
 
+.nextSetBtn {
+    background-color: lightgreen;
+    color: white;
+    height: 50px;
+    width: 130px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: none;
+    font-size: 20px;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+.nextSetBtn:hover {
+    opacity:1;
+    cursor: pointer;
+    animation: bounce 0.5s;
+}
+
 
   @media only screen and (max-width: 650px) {
     .dropbtn {
@@ -190,6 +211,27 @@ body {
         left: -75vw;
         width: 100vw;
         height: 50vh;
+    }
+    .nextSetBtn {
+        background-color: lightgreen;
+        color: white;
+        height: 9vh;
+        width: 60vw;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        border: none;
+        font-size: 25px;
+        border-radius: 15px;
+        opacity: 0.7;
+    }
+    
+    .playerInput {
+        width: 60vw;
+        height: 9vh;
+        font-size: 0.95rem;
+        margin-top: 40px;
+        border-radius: 15px;
+        background-color: whitesmoke;
     }
   }
 

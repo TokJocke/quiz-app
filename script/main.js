@@ -113,24 +113,9 @@ async function GetHighscoreList() {
   main.append(ordList)
 } 
 
-//testknapp
-let x = document.getElementById("tstbtn")
-x.addEventListener("click", postName)
-
-async function postName() {
-  let input = document.getElementById("nameInput").value
-  let body = new FormData()
-  body.set("nameInput", input)
-  const response = await makeReq("./api/dbReciever.php", "POST", body)
-  console.log(response)
-  
-}
 //New page showing result after game
 export function createResultsPage() {
   main.innerText = null
   let scoreText = document.createElement("p", "scoreText", main)
   let highScoreDiv = document.createElement("div", "highScoreDiv", main)
-  
-
-
 }
