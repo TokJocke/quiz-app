@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 body {
@@ -18,6 +19,12 @@ body {
     box-shadow: 0 9px 5px -4px black;
 }
 
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #logo {
     font-size: 30px;
     color: black;
@@ -30,6 +37,11 @@ body {
     margin: 10px;
     font-size: 20px;
     
+}
+
+.resultWrap {
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -66,20 +78,46 @@ body {
 
 .playerDiv {
     display: flex;
+    width: 90%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .playerInput {
-    width: 90%;
+    width: 100%;
     height: 7vh;
     font-size: 1.5rem;
     margin-top: 40px;
 }
 
-.confirmBtn {
+.actionDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
+.setAndRoundDiv {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+   
+
+}
+
+.setAndRoundDiv p {
+    font-size: 1.2rem;
+    
+}
+
+
+
+.timer, .currentRound, .highOrLow, .pointCounter, .setCounter {
+    font-size: 2rem;
+    
 }
 
 .pointCounter {
@@ -87,17 +125,17 @@ body {
 }
 
 .timer {
-    font-size: 2rem;
-}  
+/*     font-size: 2rem;
+ */}  
 
 .currentRound {
-    font-size: 20px;
-    
+/*     font-size: 20px;
+ */    
 }
 
 .highOrLow{
-    font-size: 20px;
-    
+/*     font-size: 50px;
+ */    
 }
 
 
@@ -160,21 +198,29 @@ body {
   .show {display: block;}
 
 /* BOT */
+.botWrap {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1vh;
+}
 
 .botDiv {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    border: 1px solid black;
+    align-items: center;
+    left: 0;
     height: 10vh;
-    margin-bottom: 2vh;
+    margin: 0 0 2vh 10vh;
 
 }
 
 .botImgDiv {
     display: flex;
     height: 100%;
+}
+
+.botTextChoice {
+    font-size: 2rem;
 }
 
 .botImg {

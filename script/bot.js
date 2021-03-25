@@ -20,7 +20,8 @@ let botArray = [{
 export function renderBot(amount) {    
     for(let i = 0; i < amount; i++) {
         let main = document.getElementsByTagName("main")[0]
-        let botDiv = createElement("div", "botDiv", main)
+        let botWrap = createElement("div", "botWrap", main)
+        let botDiv = createElement("div", "botDiv", botWrap)
         let botImgDiv = createElement("div", "botImgDiv", botDiv)
         let botImg = createElement("img", "botImg", botImgDiv)
         let botTextResponse = createElement("p", "botTextResponse", botDiv)
