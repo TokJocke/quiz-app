@@ -14,11 +14,12 @@ try {
         }
         else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $name = $_POST["nameInput"];
+            $playerInfo = json_decode($_POST["playerInfo"]);
+            
 
-             $db = new dbRepo();
-             $db->insertIntoDb($name, 1950);   //mata in highscore från avslutat spel
-             echo json_encode("success");  
+            $db = new dbRepo();
+            $db->insertIntoDb($playerInfo[1], $playerInfo[0]);   //mata in highscore från avslutat spel
+            echo json_encode($playerInfo[0]);  
             
         } 
     }

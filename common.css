@@ -159,6 +159,29 @@ body {
   
   .show {display: block;}
 
+/* BOT */
+
+.botDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid black;
+    height: 10vh;
+    margin-bottom: 2vh;
+
+}
+
+.botImgDiv {
+    display: flex;
+    height: 100%;
+}
+
+.botImg {
+
+}
+
+
   @media only screen and (max-width: 650px) {
     .dropbtn {
       width: 25vw;
@@ -172,8 +195,10 @@ body {
 
   .levelCheck{
       margin-top:20px;
+      width: 100%;
       display: flex;
       flex-direction: row;
+      justify-content: center;
   }
   .levelInput{
       width:20px;
@@ -185,4 +210,16 @@ body {
       margin-right: 10px;
       font-size: 2em;
       font-family: Arial, Helvetica, sans-serif;
+  }
+  .loggadiv{
+      width:100%;
+      height:100%;
+      display: flex;
+      justify-content: flex-start;
+  }
+  #logga{
+      height:100%;
+      padding:3px;
+      margin-left:1vw;
+      object-fit: contain;
   }
