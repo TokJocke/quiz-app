@@ -8,7 +8,7 @@ export function startGame() {
     let player = JSON.parse(sessionStorage.getItem("player"))
 
     if(!player.name) {
-        alert("fyll i ditt namn")
+        alert("Fyll i ditt namn!")
     }
     else {
         createGamePage()
