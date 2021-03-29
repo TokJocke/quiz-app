@@ -35,7 +35,7 @@ export function rounds(nrOfRounds, roundTime) {
             console.log("rounderTimer stoped")
             if(playerChoice() == true) {
                 console.log("WINNER TRUE TRUE TRUE", round)
-                nextSetBtn(roundTime, nrOfRounds)
+                nextSetBtn(nrOfRounds, roundTime)
                 givePoints()
                 gameEnd()
                 gameSet++
@@ -48,19 +48,19 @@ export function rounds(nrOfRounds, roundTime) {
                 // Check if bot guess = correct
                 if(checkGuess(correctAnswer) == true) {
                     console.log("BOT WINNER TRUE TRUE TRUE", round)
-                    nextSetBtn(roundTime, nrOfRounds)
+                    nextSetBtn(nrOfRounds, roundTime)
                     gameEnd()
                     gameSet++
                     round = 1
                 }
                 else if(round <= nrOfRounds) {
                     setTimeout(() => {
-                        rounds(roundTime, nrOfRounds)
+                        rounds(nrOfRounds, roundTime)
                         lockGuess()
                     }, 9000);
                 }
                 else {
-                    nextSetBtn(roundTime, nrOfRounds)
+                    nextSetBtn(nrOfRounds, roundTime)
                     gameEnd()
                     gameSet++
                     round = 1
@@ -151,7 +151,7 @@ function lockGuess() {
     }
 }
 
-function nextSetBtn(roundTime, nrOfRounds) {
+function nextSetBtn(nrOfRounds, roundTime) {
     let playerDiv = document.getElementsByClassName("playerDiv")[0]
     let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)   
     let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)

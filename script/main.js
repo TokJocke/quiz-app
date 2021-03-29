@@ -129,10 +129,9 @@ async function postName() {
 export async function createResultsPage() {
   let main = document.getElementsByTagName("main")[0]
   main.innerText = null
-  let scoreText = document.createElement("p", "scoreText", main)
-  let highScoreDiv = document.createElement("div", "highScoreDiv", main)
-}
-}
+
+
+
 
   let playerInfo = JSON.parse(sessionStorage.getItem("player"))
   let resultWrap = createElement("div", "resultWrap", main)
@@ -151,5 +150,5 @@ export async function createResultsPage() {
 
 
 
- }
+ 
  }
