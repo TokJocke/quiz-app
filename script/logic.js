@@ -43,6 +43,9 @@ export function getCheckedRadio() {
 
         }
     }
-
-
 }
+
+export function removeElementById(myId){	
+	var elem = document.getElementById(myId)
+	elem.parentNode.removeChild(elem);	
+} 

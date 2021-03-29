@@ -26,16 +26,20 @@ function createGamePage() {
     /*     let confirmBtn = createElement("button", "confirmBtn", playerDiv)
     */    
    
-    let pointCounter = createElement("p", "pointCounter", playerDiv)
-    let setCounter = createElement("p", "setCounter", playerDiv)
-    let timer = createElement("p", "timer", playerDiv) 
-    let currentRound = createElement("p", "currentRound", playerDiv)
-    let highOrLow = createElement("P", "highOrLow", playerDiv)
     let playerInput = createElement("input", "playerInput", playerDiv)
+
+    let actionDiv = createElement("div", "actionDiv", playerDiv)
+    let setAndRoundDiv = createElement("div", "setAndRoundDiv", actionDiv)
+  
+    let timer = createElement("p", "timer", actionDiv) 
+    let setCounter = createElement("p", "setCounter", setAndRoundDiv)
+    let pointCounter = createElement("p", "pointCounter", setAndRoundDiv)
+    let currentRound = createElement("p", "currentRound", setAndRoundDiv)
+    let highOrLow = createElement("P", "highOrLow", actionDiv) 
     playerInput.focus()
     playerInput.placeholder = "Choose a number between 1-20"
     playerInput.type = "number"
 
-    pointCounter.innerText = 0
+    pointCounter.innerText = "Points: 0"
  }  
 

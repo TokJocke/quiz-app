@@ -14,6 +14,9 @@ function initSite() {
 
 
 function createIndexContent() {
+    let main = document.getElementsByTagName("main")[0]
+    main.innerHTML = null
+
     let parentDiv = document.createElement("div")
     parentDiv.classList = "parentDiv"
 
@@ -49,7 +52,6 @@ function createIndexContent() {
     let hardcheckTitle = createElement("p", "checkTitle", levelCheck)
     hardcheckTitle.innerText="Hard"
     
-    let main = document.getElementsByTagName("main")[0]
     
     let startGameBtn = createElement("button", "startBtn", main)
     startGameBtn.innerText = "Start Game"
@@ -113,9 +115,40 @@ async function GetHighscoreList() {
   main.append(ordList)
 } 
 
+/* 
+
+async function postName() {
+  let input = document.getElementById("nameInput").value
+  let body = new FormData()
+  body.set("nameInput", input)
+  const response = await makeReq("./api/dbReciever.php", "POST", body)
+  console.log(response)
+  
+} */
 //New page showing result after game
-export function createResultsPage() {
+export async function createResultsPage() {
+  let main = document.getElementsByTagName("main")[0]
   main.innerText = null
-  let scoreText = document.createElement("p", "scoreText", main)
-  let highScoreDiv = document.createElement("div", "highScoreDiv", main)
-}
+
+
+
+
+  let playerInfo = JSON.parse(sessionStorage.getItem("player"))
+  let resultWrap = createElement("div", "resultWrap", main)
+  let resultText = createElement("p", "scoreText", resultWrap)
+  let highScoreDiv = createElement("div", "highScoreDiv", resultWrap)
+  let buttonDiv = createElement("div", "resultBtnDiv", resultWrap)
+  let backToStartBtn = createElement("button", "startBtn", buttonDiv)
+  let response = await makeReq("./api/dbReciever.php?result=" + playerInfo.name, "GET")  
+  
+  resultText.innerText = response[0].name + " you scored " + response[0].highscore + " points"
+  backToStartBtn.innerText = "Back to start"
+  
+  backToStartBtn.addEventListener("click", initSite)
+  
+  console.log(response)
+
+
+
+ 
+ }
