@@ -42,4 +42,3 @@ function createGamePage() {
 
     pointCounter.innerText = "Points: 0"
  }  
-

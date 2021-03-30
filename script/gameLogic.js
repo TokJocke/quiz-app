@@ -1,11 +1,11 @@
 import { createElement, randomNr, makeReq, removeElementById } from "./logic.js"
 import { botGuess, checkGuess } from "./bot.js"
-import { createResultsPage } from "./main.js"
+import { createResultsPage, gamedone } from "./main.js"
 
 //Some global variables to keep track of things
 let correctAnswer = randomNr(1, 20)
 let round = 1
-let gameSet = 3
+let gameSet = 1
 let points = 0
 
 console.log(correctAnswer)
@@ -20,7 +20,6 @@ export function rounds(nrOfRounds, roundTime) {
     timerElement.innerText = "Time left: " + roundTime
     setCounter.innerText = "Current set: " + gameSet
     currentRoundEle.innerText = "Round: " + round
-    gameSet = 3
     points = 0
 
     let gameTimer = setInterval(function(){  
@@ -38,6 +37,7 @@ export function rounds(nrOfRounds, roundTime) {
                 nextSetBtn(nrOfRounds, roundTime)
                 givePoints()
                 gameEnd()
+                gamedone()
                 gameSet++
                 round = 1
             }
@@ -126,15 +126,18 @@ async function gameEnd() {
     let player = JSON.parse(sessionStorage.getItem("player"))
 
     if(gameSet == player.set) {
-        let nextSetBtn = document.getElementsByClassName("nextSetBtn")[0]
+        
+        removeElementById("nextSetBtn")
         let playerInfo = [points, player.name]
-  
+        
 
         let body = new FormData()
         body.set("playerInfo", JSON.stringify(playerInfo))
         const playerScore = await makeReq("./api/dbReciever.php", "POST", body)
         console.log(playerScore)
-        createResultsPage()
+        setTimeout(() => {
+            createResultsPage()
+        }, 4000);
     }
 }
 
@@ -155,11 +158,19 @@ function nextSetBtn(nrOfRounds, roundTime) {
     let playerDiv = document.getElementsByClassName("playerDiv")[0]
     let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)   
     let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)
+        nextSetBtn.id="nextSetBtn"
         nextSetBtn.innerText = "Next set"
         nextSetBtn.addEventListener("click", () => {
             lockGuess()
+            ifwin()
             nextSetBtnWrap.innerHTML = null
             rounds(nrOfRounds, roundTime)   
             correctAnswer = randomNr(1, 20)
-         }) 
-} 
+        }) 
+    } 
+    
+    function ifwin(){
+        if(document.getElementById("endgame")){
+            removeElementById("endgame")
+        }
+    }
