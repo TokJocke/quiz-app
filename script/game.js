@@ -17,7 +17,7 @@ export function startGame() {
     }
 }
 
-function createGamePage() {
+export function createGamePage() {
     let main = document.getElementsByTagName("main")[0]
     main.innerHTML = null
     let playerDiv = createElement("div", "playerDiv", main)

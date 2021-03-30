@@ -1,5 +1,5 @@
 import { createElement, makeReq, removeElementById } from "./logic.js"
-import { startGame } from "./game.js"
+import { startGame, createGamePage } from "./game.js"
 
 window.addEventListener("load", initSite)
 
