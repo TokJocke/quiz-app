@@ -13,6 +13,12 @@ class dbRepo {
         return $userArray;
     }
 
+    function get50() {
+        $result = $this->db->fetchQuery("SELECT * FROM user ORDER BY highscore DESC LIMIT 50");
+        $userArray = $this->createList($result);
+        return $userArray;
+    }
+
     function createList($array) {
         $userArray = array();
         foreach ($array as $item) { 
