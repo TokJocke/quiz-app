@@ -1,4 +1,4 @@
-import { createElement, randomNr } from "./logic.js"
+import { createElement, randomNr, addNumberToLocalArray } from "./logic.js"
 
 let botArray = [{
     name: "gulBot",
@@ -33,16 +33,68 @@ export function renderBot(amount) {
  
 export function botGuess(correctAnswer) {
     let player = JSON.parse(sessionStorage.getItem("player"))
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
+    let pickedNumbers = JSON.parse(sessionStorage.getItem("pickedNumbers"))
+    let numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
     for(let i = 0; i < player.level; i++) {
-        let botGuess = randomNr(1, 20)
+        //Settings for dumb bot
+        let botGuess
+        if(botInfo) {
+            //dumbbot
+            if(i == 0) {
+                botGuess = randomNr(1, 20)
+                addNumberToLocalArray(botGuess)
+            }
+            //Mediumbot
+            else if(i == 1) {
+                if(correctAnswer < botInfo[i].guess) {
+                    botGuess = randomNr(1, botInfo[i].guess--)
+                    addNumberToLocalArray(botGuess)
+                }
+                else if(correctAnswer > botInfo[i].guess) {
+                    botGuess = randomNr(botInfo[i].guess++, 20)
+                    addNumberToLocalArray(botGuess)
+                }
+            }
+            //Smartbot
+            else if(i == 2) {
+                if(correctAnswer < botInfo[i].guess) {
+                    console.log("NUMBERS***************", numberArray)
+                    console.log("pickedNumbers*************", pickedNumbers)
+                    
+                    pickedNumbers.forEach(number => {            
+                        numberArray = numberArray.filter(item => item !== number)       
+                    }); 
+                    botGuess = numberArray[randomNr(0, botInfo[i].guess)]  
+                    addNumberToLocalArray(botGuess)
+                }
+                else if(correctAnswer > botInfo[i].guess) {
+                    console.log("NUMBERS***************", numberArray)
+                    console.log("pickedNumbers*************", pickedNumbers)
+                          
+                    pickedNumbers.forEach(number => {
+                        numberArray = numberArray.filter(item => item !== number)   
+                    });  
+                    botGuess = numberArray[randomNr(botInfo[i].guess, numberArray.length)]
+                    addNumberToLocalArray(botGuess)
+                }
+            }
+        }
+        else {
+            botGuess = randomNr(1, 20)
+            addNumberToLocalArray(botGuess)
+
+            console.log(botGuess)
+        }
         botArray[i].guess = botGuess
-        console.log(botGuess)
     }
     sessionStorage.setItem("botInfo", JSON.stringify(botArray))
     botInteraction(correctAnswer)
 }
+
  
-export function checkGuess(correctAnswer) {
+export function checkBotGuess(correctAnswer) {
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))    
     let player = JSON.parse(sessionStorage.getItem("player"))
 
@@ -80,142 +132,3 @@ async function botInteraction(correctAnswer) {
 
 
 
-
-
-/*  
-export function botCheckGuess() {
-   // for(let i = 0; i < amount; i++) {
-            let botTextChoice = document.getElementsByClassName("botTextChoice")[i]
-            let botTextResponse = document.getElementsByClassName("botTextResponse")[i]
-            botTextChoice.innerText = botGuess
-
-            if(botGuess == correctAnswer) {
-                botTextResponse.innerText = "Winner"
-                return true
-            }
-            else if(botGuess < correctAnswer) {
-              
-                botTextResponse.innerText = "higher"
-                return false
-            }
-            else if(botGuess > correctAnswer) {
-            
-                botTextResponse.innerText = "lower"
-                return false
-            }
-}
- */
-
-
-
-            /*             if(checkBotGuess(correctAnswer, botGuess) == "winner") {
-                botTextResponse.innerText = "WINNER"
-                return true
-            }
-            else if(checkBotGuess(correctAnswer, botGuess) == "higher") {
-                botTextResponse.innerText = "higher"
-                return false
-            }
-            else if(checkBotGuess(correctAnswer, botGuess) == "lower") {
-                botTextResponse.innerText = "lower"
-                return false
-            } */
-            //   }
-    
-        
-        
-/*         
-function checkBotGuess(correctAnswer, botGuess) {
-
-    
-    if(botGuess == correctAnswer) {
-    
-        return "winner"
-    }
-    else if(botGuess < correctAnswer) {
-
-        return "higher"
-    }
-    else if(botGuess > correctAnswer) {
-     
-        return "lower"
-    }
-}
-
-
-
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* export function botInteraction(correctAnswer, amount) {
-    console.log("botInteraction running")
-    
-    for(let i = 0; i < amount; i++) {
-        
-        let botTextResponse = document.getElementsByClassName("botTextResponse")
-        let botImg = document.getElementsByClassName("botImg")
-        let choice = botChoice(correctAnswer)
-        
-
-
-        if (choice == true) {
-            botTextResponse[i].innerText = "winner"
-        }
-
-        else if (choice == "higher") {
-
-            botImg.src = botArray[i].img + "-titta.png"
-            botTextChoice[i].innerText = curren
-            botTextResponse[i].innerText = choice
-        }
-
-        else if (choice == "lower"){
-            botImg.src = botArray[i].img + "-forvarnad.png"
-            botTextResponse[i].innerText = choice
-
-        }
-
-        else {
-            console.log("error")
-        }
-        
-    }
-}
-
-function botChoice(correctAnswer) {
-    console.log("botChoice running")
-    
-    
-    let botChoice = randomNr(1, 20)
-
-
-
-
-    if(botChoice == correctAnswer) {
-              
-       
-        return true
-    }
-    else if(botChoice < correctAnswer) {
-   
-        return "higher"
-    }
-    else if(botChoice > correctAnswer) {
-
-
-        return "lower"
-    } 
-} */

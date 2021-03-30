@@ -49,3 +49,35 @@ export function removeElementById(myId){
 	var elem = document.getElementById(myId)
 	elem.parentNode.removeChild(elem);	
 } 
+
+export function addNumberToLocalArray(number) {
+    let pickedNumbers = JSON.parse(sessionStorage.getItem("pickedNumbers"))
+    let numberArray
+    if(!pickedNumbers) {
+        numberArray = []
+        numberArray.push(number)
+    }
+    else {
+        numberArray = pickedNumbers
+        numberArray.push(number)
+ /*        numberArray.forEach(numberInArray => {
+            if(numberInArray != number) {
+                numberArray.push(number)
+            } 
+        });  */
+    }
+    sessionStorage.setItem("pickedNumbers", JSON.stringify(numberArray))
+}
+
+/* export function loopPickedNumber(array, guess) {
+        if(array.includes(guess)) {
+            console.log("found guess in arrray")
+            return false
+        }
+        else {
+            return true
+        }
+
+    
+}
+ */
