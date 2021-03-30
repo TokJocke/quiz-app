@@ -1,4 +1,4 @@
-import { createElement, makeReq } from "./logic.js"
+import { createElement, makeReq, removeElementById } from "./logic.js"
 import { startGame } from "./game.js"
 
 window.addEventListener("load", initSite)
@@ -8,6 +8,7 @@ function initSite() {
     createIndexContent()
     callBtn()
     clickLogo()
+    selectOption()
     GetHighscoreList()
     sessionStorage.clear()
 }
@@ -92,19 +93,29 @@ function clickLogo() {
 
     } )
 }
- 
-async function GetHighscoreList() {
+
+async function getTop50() {
+  let myDiv = document.createElement("div")
+  let overflowDiv = document.createElement("div")
+  overflowDiv.style.maxHeight = "30vh"
+  overflowDiv.style.overflowY = "scroll"
+  myDiv.id = "highscoreDiv"
   let ordList = document.createElement("ol")
   let headline = document.createElement("h2")
-  headline.innerText = "Highscore"
+  headline.innerText = "Top 50 Highscore"
+  headline.style.marginTop = "75px"
   ordList.append(headline)
   ordList.style.width = "100vw"
+  ordList.style.maxHeight = "30vh"
   ordList.style.display = "flex"
   ordList.style.flexDirection = "column"
   ordList.style.justifyContent = "center"
   ordList.style.alignItems = "center"
-  const response = await makeReq("./api/dbReciever.php", "GET")
-  console.log("ARRAY =", response)
+  ordList.style.padding = "0px"
+
+  const response = await makeReq("./api/dbReciever.php?top50", "GET")
+  console.log("top50 =", response)
+
   response.forEach(user => {
     let listItem = document.createElement("li")
     listItem.style.margin = "3px"
@@ -112,10 +123,68 @@ async function GetHighscoreList() {
     ordList.appendChild(listItem)
   });
   let main = document.getElementsByTagName("main")[0]
-  main.append(ordList)
+  myDiv.append(overflowDiv)
+  overflowDiv.append(ordList)
+  main.appendChild(myDiv)
+} 
+ 
+async function GetHighscoreList() {
+  let myDiv = document.createElement("div")
+  myDiv.id = "highscoreDiv2"
+  let ordList = document.createElement("ol")
+  let headline = document.createElement("h2")
+  headline.innerText = "Top 3 Highscore"
+  ordList.append(headline)
+  ordList.style.width = "100vw"
+  ordList.style.display = "flex"
+  ordList.style.flexDirection = "column"
+  ordList.style.justifyContent = "center"
+  ordList.style.alignItems = "center"
+  ordList.style.padding = "0px"
+
+  const response = await makeReq("./api/dbReciever.php", "GET")
+  console.log("ARRAY =", response)
+
+  response.forEach(user => {
+    let listItem = document.createElement("li")
+    listItem.style.margin = "3px"
+    listItem.innerText = user.name + "," + " " + user.highscore + " p"
+    ordList.appendChild(listItem)
+  });
+  let main = document.getElementsByTagName("main")[0]
+  myDiv.append(ordList)
+  main.appendChild(myDiv)
+}
+
+function selectOption() {
+  let main = document.getElementsByTagName("main")[0]
+  let mySelect = document.createElement("select")
+  mySelect.id = "mySelect"
+  let option = document.createElement("option")
+  option.innerText = "Top 3"
+  option.value = "1"
+  let option2 = document.createElement("option")
+  option2.innerText = "Top 50"
+  option2.value = "2"
+  mySelect.append(option, option2)
+  main.appendChild(mySelect)
+  mySelect.addEventListener("change", () => {
+   
+    if(mySelect.value == 2) {
+      getTop50()
+      removeElementById("highscoreDiv2")
+    }
+
+    if(mySelect.value == 1) {
+      GetHighscoreList()
+      removeElementById("highscoreDiv")
+    }
+
+  })
+ 
 } 
 
-/* 
+/*
 
 async function postName() {
   let input = document.getElementById("nameInput").value

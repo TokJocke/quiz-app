@@ -14,6 +14,12 @@ try {
                 /* echo json_encode("asdsd"); */
  
             }
+
+            else if(isset($_GET["top50"])) {
+                $db = new dbRepo();
+                echo json_encode($db->get50());
+            }
+
             else {
                 $db = new dbRepo();
                 echo json_encode($db->getDb());
