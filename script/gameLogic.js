@@ -1,23 +1,33 @@
-import { createElement, randomNr } from "./logic.js"
+import { createElement, randomNr, makeReq, removeElementById } from "./logic.js"
+import { botGuess, checkGuess } from "./bot.js"
+import { createResultsPage } from "./main.js"
 
 //Some global variables to keep track of things
 let correctAnswer = randomNr(1, 20)
 let round = 1
-let gameSet = 0
+let gameSet = 3
 let points = 0
-
 
 console.log(correctAnswer)
 
-export function rounds(roundTime, nrOfRounds) {
+export function rounds(nrOfRounds, roundTime) {
     let playerPick = Number(document.getElementsByClassName("playerInput")[0].value)
     let timerElement = document.getElementsByClassName("timer")[0]
+    let setCounter = document.getElementsByClassName("setCounter")[0]
+    let currentRoundEle = document.getElementsByClassName("currentRound")[0]
     //roundCount == varje sekund RoundTime == totalTid för runda
     let roundCount = roundTime
-    timerElement.innerText = roundTime
+    timerElement.innerText = "Time left: " + roundTime
+    setCounter.innerText = "Current set: " + gameSet
+    currentRoundEle.innerText = "Round: " + round
+    gameSet = 3
+    points = 0
+
     let gameTimer = setInterval(function(){  
         roundCount -= 1
-        timerElement.innerText = roundCount
+        currentRoundEle.innerText = "Round: " + round
+        timerElement.innerText = "Time left: " + roundCount
+        setCounter.innerText = "Current set: " + gameSet
         if(roundCount == 0){
             lockGuess()
             clearInterval(gameTimer);
@@ -25,21 +35,34 @@ export function rounds(roundTime, nrOfRounds) {
             console.log("rounderTimer stoped")
             if(playerChoice() == true) {
                 console.log("WINNER TRUE TRUE TRUE", round)
-                nextSetBtn(roundTime, nrOfRounds)
+                nextSetBtn(nrOfRounds, roundTime)
                 givePoints()
+                gameEnd()
+                gameSet++
                 round = 1
             }
             else if(playerChoice() == false) {
-                console.log("round =", round) 
+                botGuess(correctAnswer)
                 round++
-                if(round <= nrOfRounds) {
+
+                // Check if bot guess = correct
+                if(checkGuess(correctAnswer) == true) {
+                    console.log("BOT WINNER TRUE TRUE TRUE", round)
+                    nextSetBtn(nrOfRounds, roundTime)
+                    gameEnd()
+                    gameSet++
+                    round = 1
+                }
+                else if(round <= nrOfRounds) {
                     setTimeout(() => {
-                        rounds(roundTime, nrOfRounds)
+                        rounds(nrOfRounds, roundTime)
                         lockGuess()
-                    }, 3000);
+                    }, 9000);
                 }
                 else {
-                    nextSetBtn(roundTime, nrOfRounds)
+                    nextSetBtn(nrOfRounds, roundTime)
+                    gameEnd()
+                    gameSet++
                     round = 1
                 }
             }    
@@ -49,56 +72,75 @@ export function rounds(roundTime, nrOfRounds) {
 
 function playerChoice() {
     let playerChoice = Number(document.getElementsByClassName("playerInput")[0].value)
-    console.log("playerChoiceFunc running")
     let highOrLowEle = document.getElementsByClassName("highOrLow")[0]
-    console.log("player: ", playerChoice)
+   // let actionDiv = document.getElementsByClassName("actionDiv")[0]
+   
+    
+    
+    console.log("playerChoiceFunc running")
     if(playerChoice == correctAnswer) {
-        highOrLowEle.innerText = "correct"
+ 
+        highOrLowEle.innerText = "Correct"
+        highOrLowEle.style.animation = "bounce 0.5s"
         return true
     }
     else if(playerChoice < correctAnswer) {
-        highOrLowEle.innerText = "higher"
+        highOrLowEle.innerText = "Higher"
+        highOrLowEle.style.animation = "bounce 0.5s"
         return false
     }
     else if(playerChoice > correctAnswer) {
-        highOrLowEle.innerText = "lower"
+        highOrLowEle.innerText = "Lower"
+        highOrLowEle.style.animation = "bounce 0.5s"
         return false
     }
 }
 
 function givePoints() {
+    let player = JSON.parse(sessionStorage.getItem("player"))
     const pointCounter = document.getElementsByClassName("pointCounter")[0]
     if(round === 1) {
-        points += 50;
+        points += 50*player.level;
     }
     else if(round === 2) {
-        points += 40;
+        points += 40*player.level;
     }
     else if(round === 3) {
-        points += 30;
+        points += 30*player.level;
     }
     else if(round === 4) {
-        points += 20;
+        points += 20*player.level;
     }
     else if(round === 5) {
-        points += 10;
+        points += 10*player.level;
     }
-    pointCounter.innerText = points
+    pointCounter.innerText = "Points: " + points
 }
-
-export function gameSetAmount(nrOfRounds, roundTime, setAmount) {
-    gameSet++
+/* 
+export function gameSetAmount(nrOfRounds, roundTime) {
+    //gameSet++
     rounds(nrOfRounds, roundTime)
+} */
 
-    if(gameSet == setAmount) {
-        console.log("finished")
+async function gameEnd() {
+    let player = JSON.parse(sessionStorage.getItem("player"))
+
+    if(gameSet == player.set) {
+        let nextSetBtn = document.getElementsByClassName("nextSetBtn")[0]
+        let playerInfo = [points, player.name]
+  
+
+        let body = new FormData()
+        body.set("playerInfo", JSON.stringify(playerInfo))
+        const playerScore = await makeReq("./api/dbReciever.php", "POST", body)
+        console.log(playerScore)
+        createResultsPage()
     }
 }
 
 function lockGuess() {
     console.log("running lockGuess")
     const playerPick = document.getElementsByClassName("playerInput")[0]
-    console.log(playerPick)
     if(!playerPick.disabled) {
         playerPick.disabled = "true"
     }
@@ -109,7 +151,7 @@ function lockGuess() {
     }
 }
 
-function nextSetBtn(roundTime, nrOfRounds) {
+function nextSetBtn(nrOfRounds, roundTime) {
     let playerDiv = document.getElementsByClassName("playerDiv")[0]
     let nextSetBtnWrap = createElement("div", "nextSetBtnWrap", playerDiv)   
     let nextSetBtn = createElement("button", "nextSetBtn", nextSetBtnWrap)
@@ -119,6 +161,5 @@ function nextSetBtn(roundTime, nrOfRounds) {
             nextSetBtnWrap.innerHTML = null
             rounds(nrOfRounds, roundTime)   
             correctAnswer = randomNr(1, 20)
-            console.log("correct answer: ", correctAnswer)
          }) 
 } 

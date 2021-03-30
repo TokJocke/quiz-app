@@ -28,3 +28,24 @@ export async function makeReq(path, method, body) {
 }
 
 
+export function getCheckedRadio() {
+    let levelInput = document.getElementsByClassName("levelInput")
+    let nameInput = document.getElementById("nameInput").value
+    for(let i = 0; i < levelInput.length; i++) {
+        if(levelInput[i].checked) {
+            let player = {
+                name: nameInput,    
+                level: levelInput[i].value,
+                set: 3
+            }
+            console.log(player)
+            sessionStorage.setItem("player", JSON.stringify(player))
+
+        }
+    }
+}
+
+export function removeElementById(myId){	
+	var elem = document.getElementById(myId)
+	elem.parentNode.removeChild(elem);	
+} 

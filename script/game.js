@@ -1,9 +1,20 @@
-import { createElement } from "./logic.js"
-import {  gameSetAmount } from "./gameLogic.js"
+import { createElement, getCheckedRadio } from "./logic.js"
+import {  rounds } from "./gameLogic.js"
+import { renderBot } from "./bot.js"
+
 
 export function startGame() {
-    createGamePage()
-    gameSetAmount(5, 5, 3)
+    getCheckedRadio()
+    let player = JSON.parse(sessionStorage.getItem("player"))
+
+    if(!player.name) {
+        alert("Fyll i ditt namn!")
+    }
+    else {
+        createGamePage()
+        rounds(5, 12/player.level)
+        renderBot(player.level)
+    }
 }
 
 function createGamePage() {
@@ -16,17 +27,19 @@ function createGamePage() {
     */    
    
     let playerInput = createElement("input", "playerInput", playerDiv)
-    let pointCounter = createElement("p", "pointCounter", playerDiv)
-    let timer = createElement("p", "timer", playerDiv) 
-    let currentRound = createElement("p", "currentRound", playerDiv)
-    let highOrLow = createElement("P", "highOrLow", playerDiv)
+
+    let actionDiv = createElement("div", "actionDiv", playerDiv)
+    let setAndRoundDiv = createElement("div", "setAndRoundDiv", actionDiv)
+  
+    let timer = createElement("p", "timer", actionDiv) 
+    let setCounter = createElement("p", "setCounter", setAndRoundDiv)
+    let pointCounter = createElement("p", "pointCounter", setAndRoundDiv)
+    let currentRound = createElement("p", "currentRound", setAndRoundDiv)
+    let highOrLow = createElement("P", "highOrLow", actionDiv) 
     playerInput.focus()
-
-
-    playerInput.placeholder = "chose a number between 1-20"
+    playerInput.placeholder = "Choose a number between 1-20"
     playerInput.type = "number"
- /*    confirmBtn.innerText = "confirm"
-    confirmBtn.addEventListener("click", playTurn) */
-    pointCounter.innerText = 0
- }
+
+    pointCounter.innerText = "Points: 0"
+ }  
 

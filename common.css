@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 body {
@@ -18,6 +19,12 @@ body {
     box-shadow: 0 9px 5px -4px black;
 }
 
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #logo {
     font-size: 30px;
     color: black;
@@ -32,20 +39,11 @@ body {
     
 }
 
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 50px;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0px -5px 10px;
-    }
+.resultWrap {
+    display: flex;
+    flex-direction: column;
+}
 
-p.copyright {
-        width: 100%;
-        text-align: center;
-    }
 
 /* GamePage */
 
@@ -80,20 +78,49 @@ p.copyright {
 
 .playerDiv {
     display: flex;
+    width: 90%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .playerInput {
-    width: 90%;
+    width: 70%;
+    width: 100%;
     height: 7vh;
     font-size: 1.5rem;
     margin-top: 40px;
+    border-radius: 15px;
+    background-color: whitesmoke;
 }
 
-.confirmBtn {
+.actionDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
+.setAndRoundDiv {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+   
+
+}
+
+.setAndRoundDiv p {
+    font-size: 1.2rem;
+    
+}
+
+
+
+.timer, .currentRound, .highOrLow, .pointCounter, .setCounter {
+    font-size: 2rem;
+    
 }
 
 .pointCounter {
@@ -101,17 +128,17 @@ p.copyright {
 }
 
 .timer {
-    font-size: 2rem;
-}  
+/*     font-size: 2rem;
+ */}  
 
 .currentRound {
-    font-size: 20px;
-    
+/*     font-size: 20px;
+ */    
 }
 
 .highOrLow{
-    font-size: 20px;
-    
+/*     font-size: 50px;
+ */    
 }
 
 
@@ -160,7 +187,7 @@ p.copyright {
     border-radius: 3px;
     left: -25vw;
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
   
@@ -173,6 +200,56 @@ p.copyright {
   
   .show {display: block;}
 
+/* BOT */
+.botWrap {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1vh;
+}
+
+.botDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    left: 0;
+    height: 10vh;
+    margin: 0 0 2vh 10vh;
+
+}
+
+.botImgDiv {
+    display: flex;
+    height: 100%;
+}
+
+.botTextChoice {
+    font-size: 2rem;
+}
+
+.botImg {
+
+}
+
+.nextSetBtn {
+    background-color: lightgreen;
+    color: white;
+    height: 50px;
+    width: 130px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: none;
+    font-size: 20px;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+.nextSetBtn:hover {
+    opacity:1;
+    cursor: pointer;
+    animation: bounce 0.5s;
+}
+
+
   @media only screen and (max-width: 650px) {
     .dropbtn {
       width: 25vw;
@@ -182,4 +259,71 @@ p.copyright {
         width: 100vw;
         height: 50vh;
     }
+    .nextSetBtn {
+        background-color: lightgreen;
+        color: white;
+        height: 9vh;
+        width: 60vw;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        border: none;
+        font-size: 25px;
+        border-radius: 15px;
+        opacity: 0.7;
+    }
+    
+    .playerInput {
+        width: 60vw;
+        height: 9vh;
+        font-size: 0.95rem;
+        margin-top: 40px;
+        border-radius: 15px;
+        background-color: whitesmoke;
+    }
   }
+
+  .levelCheck{
+      margin-top:20px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+  .levelInput{
+      width:20px;
+      height:20px;
+      margin:8px;
+  }
+  .checkTitle{
+      margin-top: 0px;
+      margin-right: 10px;
+      font-size: 2em;
+      font-family: Arial, Helvetica, sans-serif;
+  }
+  .loggadiv{
+      width:100%;
+      height:100%;
+      display: flex;
+      justify-content: flex-start;
+  }
+  #logga{
+      height:100%;
+      padding:3px;
+      margin-left:1vw;
+      object-fit: contain;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px -5px 10px;
+    }
+
+p.copyright {
+        width: 100%;
+        text-align: center;
+    }
