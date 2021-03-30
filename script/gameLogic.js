@@ -22,7 +22,7 @@ export function rounds(nrOfRounds, roundTime) {
     setCounter.innerText = "Current set: " + gameSet
     currentRoundEle.innerText = "Round: " + round
     points = 0
-
+    gameSet = 1
     let gameTimer = setInterval(function(){  
         roundCount -= 1
         currentRoundEle.innerText = "Round: " + round
@@ -137,6 +137,7 @@ async function gameEnd() {
         console.log(playerScore)
         setTimeout(() => {
             createResultsPage()
+            correctAnswer = randomNr(1, 20)
         }, 4000);
     }
 }

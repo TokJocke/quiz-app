@@ -16,8 +16,14 @@ export function startGame() {
         renderBot(player.level)
     }
 }
+export function playAgain(){
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    createGamePage()
+    rounds(5, 12/player.level)
+    renderBot(player.level)
+}
 
-function createGamePage() {
+export function createGamePage() {
     let main = document.getElementsByTagName("main")[0]
     main.innerHTML = null
     let playerDiv = createElement("div", "playerDiv", main)

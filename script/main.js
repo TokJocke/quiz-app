@@ -1,5 +1,5 @@
 import { createElement, makeReq, removeElementById } from "./logic.js"
-import { startGame } from "./game.js"
+import { startGame, playAgain } from "./game.js"
 
 window.addEventListener("load", initSite)
 
@@ -24,33 +24,41 @@ function createIndexContent() {
     let nameInput = document.createElement("input")
     nameInput.id = "nameInput"
     nameInput.placeholder = "What's your player name?"
-    nameInput.style.height = "35px"
-    nameInput.style.width = "50%"
+    nameInput.style.height = "50px"
+    nameInput.style.width = "80%"
+    nameInput.style.maxWidth ="600px"
     nameInput.style.border = "none"
     nameInput.style.borderRadius = "5px"
     
     let levelCheck = createElement("div", "levelCheck", parentDiv )
     
-    let easycheck = createElement("input", "levelInput", levelCheck)
+    let easyDiv = createElement("div", "easyDiv",levelCheck )
+
+    let normalDiv = createElement("div", "easyDiv",levelCheck )
+
+    let hardDiv = createElement("div", "easyDiv",levelCheck )
+
+
+    let easycheck = createElement("input", "levelInput", easyDiv)
     easycheck.value = 1
     easycheck.type = "radio"
     easycheck.name ="radio"
-    let easycheckTitle = createElement("p", "checkTitle", levelCheck)
+    let easycheckTitle = createElement("p", "checkTitle", easyDiv)
     easycheckTitle.innerText="Easy"
     
-    let normalcheck = createElement("input", "levelInput", levelCheck)
+    let normalcheck = createElement("input", "levelInput", normalDiv)
     normalcheck.value = 2
     normalcheck.checked = true
     normalcheck.type = "radio"
     normalcheck.name ="radio"
-    let normalcheckTitle = createElement("p", "checkTitle", levelCheck)
+    let normalcheckTitle = createElement("p", "checkTitle", normalDiv)
     normalcheckTitle.innerText="Normal"
   
-    let hardcheck = createElement("input", "levelInput", levelCheck)
+    let hardcheck = createElement("input", "levelInput", hardDiv)
     hardcheck.value = 3
     hardcheck.type = "radio"
     hardcheck.name ="radio"
-    let hardcheckTitle = createElement("p", "checkTitle", levelCheck)
+    let hardcheckTitle = createElement("p", "checkTitle", hardDiv)
     hardcheckTitle.innerText="Hard"
     
     
@@ -214,7 +222,10 @@ export async function createResultsPage() {
   backToStartBtn.innerText = "Back to start"
   
   backToStartBtn.addEventListener("click", initSite)
-  
+  //Niklas kodar
+  let backtoGame = createElement("button","startBtn", buttonDiv)
+  backtoGame.innerText ="Play Again"
+  backtoGame.addEventListener("click", playAgain)
   console.log(response)
  
  } 
