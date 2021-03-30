@@ -90,6 +90,7 @@ function clickLogo() {
         main.innerHTML = null
         createIndexContent()
         GetHighscoreList()
+        selectOption()
 
     } )
 }
@@ -103,10 +104,9 @@ async function getTop50() {
   let ordList = document.createElement("ol")
   let headline = document.createElement("h2")
   headline.innerText = "Top 50 Highscore"
-  headline.style.marginTop = "75px"
   ordList.append(headline)
   ordList.style.width = "100vw"
-  ordList.style.maxHeight = "30vh"
+  ordList.style.maxHeight = "auto"
   ordList.style.display = "flex"
   ordList.style.flexDirection = "column"
   ordList.style.justifyContent = "center"
