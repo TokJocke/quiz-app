@@ -312,3 +312,27 @@ main {
       margin-left:1vw;
       object-fit: contain;
   }
+
+  .endgame{
+    top:200px;
+    margin:10px;
+    position:fixed;
+    justify-content:center;
+    width:290px;
+    height:80px;
+    background-color: rgb(230, 96, 48);
+    box-shadow: 0 9px 20px -5px black;
+    border-radius: 25px;
+    animation:goDown 2.0s;
+  }
+  .winbox{
+      display:flex;
+      justify-content: center;
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-weight: bold;
+      width:100%;
+      padding:5px;
+      font-size: 2.5em;
+      animation: colorchange 1.0s;
+      animation-iteration-count: infinite;
+  }

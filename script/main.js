@@ -147,8 +147,19 @@ export async function createResultsPage() {
   backToStartBtn.addEventListener("click", initSite)
   
   console.log(response)
-
-
+ 
+ } 
 
  
- }
+ export function gamedone() {
+   
+   let main = document.getElementsByTagName("main")[0]
+   
+   let endgame = createElement("div","endgame", main)
+   endgame.id="endgame"
+   endgame.style.display ="block"
+   endgame.style.padding ="10px"
+   
+   let winbox = createElement("div","winbox", endgame)
+   winbox.innerText ="Correct guess"
+  }
