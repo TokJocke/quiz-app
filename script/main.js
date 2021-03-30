@@ -145,7 +145,16 @@ export async function createResultsPage() {
   backToStartBtn.innerText = "Back to start"
   
   backToStartBtn.addEventListener("click", initSite)
-  
+  //Niklas kodar
+  let backtoGame = createElement("div","startBtn", buttonDiv)
+  backtoGame.innerText ="play again"
+  backtoGame.addEventListener("click",()=>{
+    
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    createGamePage()
+    rounds(5, 12/player.level)
+    renderBot(player.level)
+  } )
   console.log(response)
  
  } 
