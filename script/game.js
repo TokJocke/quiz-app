@@ -16,6 +16,12 @@ export function startGame() {
         renderBot(player.level)
     }
 }
+export function playAgain(){
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    createGamePage()
+    rounds(5, 12/player.level)
+    renderBot(player.level)
+}
 
 export function createGamePage() {
     let main = document.getElementsByTagName("main")[0]
