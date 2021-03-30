@@ -1,5 +1,5 @@
 import { createElement, randomNr, makeReq, removeElementById } from "./logic.js"
-import { botGuess, checkGuess } from "./bot.js"
+import { botGuess, checkBotGuess } from "./bot.js"
 import { createResultsPage } from "./main.js"
 
 //Some global variables to keep track of things
@@ -46,7 +46,7 @@ export function rounds(nrOfRounds, roundTime) {
                 round++
 
                 // Check if bot guess = correct
-                if(checkGuess(correctAnswer) == true) {
+                if(checkBotGuess(correctAnswer) == true) {
                     console.log("BOT WINNER TRUE TRUE TRUE", round)
                     nextSetBtn(nrOfRounds, roundTime)
                     gameEnd()
@@ -75,7 +75,6 @@ function playerChoice() {
     let highOrLowEle = document.getElementsByClassName("highOrLow")[0]
    // let actionDiv = document.getElementsByClassName("actionDiv")[0]
    
-    
     
     console.log("playerChoiceFunc running")
     if(playerChoice == correctAnswer) {
