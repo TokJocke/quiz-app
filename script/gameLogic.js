@@ -28,8 +28,6 @@ export function rounds(nrOfRounds, roundTime) {
     timerElement.innerText = "Time left: " + roundTime
     setCounter.innerText = "Current set: " + gameSet
     currentRoundEle.innerText = "Round: " + round
-    points = 0
-  /*   gameSet = 1 */
     let gameTimer = setInterval(function(){  
         roundCount -= 1
         currentRoundEle.innerText = "Round: " + round
