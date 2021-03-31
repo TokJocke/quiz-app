@@ -84,7 +84,6 @@ export function botGuess(correctAnswer) {
             botGuess = randomNr(1, 20)
             addNumberToLocalArray(botGuess)
 
-            console.log(botGuess)
         }
         botArray[i].guess = botGuess
     }
@@ -97,10 +96,8 @@ export function checkBotGuess(correctAnswer) {
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))    
     let player = JSON.parse(sessionStorage.getItem("player"))
 
-    console.log(botInfo)
     for(let i = 0; i < player.level; i++){
         if(botInfo[i].guess == correctAnswer) {
-            console.log("in checkGuess()")
             return true
         }
     }
@@ -111,7 +108,6 @@ async function botInteraction(correctAnswer) {
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
     let player = JSON.parse(sessionStorage.getItem("player"))
 
-    console.log(botInfo)
     const timer = ms => new Promise(res => setTimeout(res, ms))
         for (var i = 0; i < player.level; i++) {
             
@@ -131,10 +127,13 @@ async function botInteraction(correctAnswer) {
 export function resetBotGuess() {
 
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
-    for (let i = 0; i < botInfo.length; i++) {
-        botInfo[i].guess = ""
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    if(botInfo) {
+        for (let i = 0; i < player.level; i++) {
+            botInfo[i].guess = ""
+        }
+        sessionStorage.setItem("botInfo", JSON.stringify(botInfo))
     }
-    sessionStorage.setItem("botInfo", JSON.stringify(botInfo))
 
 }
 

@@ -95,10 +95,7 @@ function clickLogo() {
     let x = document.getElementById("logga")
     let main = document.getElementsByTagName("main")[0]
     x.addEventListener("click", () => {
-        main.innerHTML = null
-        createIndexContent()
-        GetHighscoreList()
-        selectOption()
+      window.location.reload()
 
     } )
 }
@@ -122,7 +119,6 @@ async function getTop50() {
   ordList.style.padding = "0px"
 
   const response = await makeReq("./api/dbReciever.php?top50", "GET")
-  console.log("top50 =", response)
 
   response.forEach(user => {
     let listItem = document.createElement("li")
@@ -151,7 +147,6 @@ async function GetHighscoreList() {
   ordList.style.padding = "0px"
 
   const response = await makeReq("./api/dbReciever.php", "GET")
-  console.log("ARRAY =", response)
 
   response.forEach(user => {
     let listItem = document.createElement("li")
@@ -192,16 +187,7 @@ function selectOption() {
  
 } 
 
-/*
 
-async function postName() {
-  let input = document.getElementById("nameInput").value
-  let body = new FormData()
-  body.set("nameInput", input)
-  const response = await makeReq("./api/dbReciever.php", "POST", body)
-  console.log(response)
-  
-} */
 //New page showing result after game
 export async function createResultsPage() {
   let main = document.getElementsByTagName("main")[0]
@@ -222,11 +208,9 @@ export async function createResultsPage() {
   backToStartBtn.innerText = "Back to start"
   
   backToStartBtn.addEventListener("click", initSite)
-  //Niklas kodar
   let backtoGame = createElement("button","startBtn", buttonDiv)
   backtoGame.innerText ="Play Again"
   backtoGame.addEventListener("click", playAgain)
-  console.log(response)
  
  } 
 

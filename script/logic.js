@@ -38,7 +38,6 @@ export function getCheckedRadio() {
                 level: levelInput[i].value,
                 set: 3
             }
-            console.log(player)
             sessionStorage.setItem("player", JSON.stringify(player))
 
         }
@@ -60,24 +59,8 @@ export function addNumberToLocalArray(number) {
     else {
         numberArray = pickedNumbers
         numberArray.push(number)
- /*        numberArray.forEach(numberInArray => {
-            if(numberInArray != number) {
-                numberArray.push(number)
-            } 
-        });  */
+
     }
     sessionStorage.setItem("pickedNumbers", JSON.stringify(numberArray))
 }
 
-/* export function loopPickedNumber(array, guess) {
-        if(array.includes(guess)) {
-            console.log("found guess in arrray")
-            return false
-        }
-        else {
-            return true
-        }
-
-    
-}
- */

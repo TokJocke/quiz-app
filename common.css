@@ -48,6 +48,20 @@ main {
 .resultWrap {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.resultWrap > p {
+    font-size: 2em;
+    animation: colorchange 0.5s;
+    animation-iteration-count: infinite;}
+
+.resultBtnDiv {
+    font-size: 0.7em;
+    width: 35vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -421,3 +435,6 @@ p.copyright {
       animation-iteration-count: infinite;
   }
 
+  .resultWrap > p {
+    font-size: 1.5em;
+    }
