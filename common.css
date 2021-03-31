@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin: 0;
-    box-shadow: 0 9px 5px -4px black;
+    box-shadow: 0 9px 15px -4px black;
 }
 
 main {
@@ -145,6 +145,11 @@ main {
     
 }
 
+.timer, .highOrLow {
+    margin: 0.25em;
+    font-size: 1.5rem;
+}
+
 .pointCounter {
 
 }
@@ -226,7 +231,7 @@ main {
 .botWrap {
     display: flex;
     width: 100%;
-    margin-bottom: 1vh;
+    margin-bottom: 0.5vh;
 }
 
 .botDiv {
@@ -258,13 +263,13 @@ main {
     color: white;
     height: 50px;
     width: 130px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border: none;
     font-size: 20px;
     border-radius: 15px;
     opacity: 0.7;
-}
+} 
 
 .nextSetBtn:hover {
     opacity:1;
@@ -311,10 +316,10 @@ main {
     .nextSetBtn {
         background-color: lightgreen;
         color: white;
-        height: 9vh;
+        height: 7vh;
         width: 60vw;
-        margin-top: 30px;
-        margin-bottom: 30px;
+
+        margin: 0.5em 0 1em 0;
         border: none;
         font-size: 25px;
         border-radius: 15px;
@@ -377,13 +382,15 @@ main {
 
  footer {
     position: fixed;
+    display: flex;
     left: 0;
     bottom: 0;
-    height: 50px;
+    height: 5vh;
     width: 100%;
     background-color: white;
-    box-shadow: 0px -5px 10px;
-    }
+    box-shadow: 0 -5px 15px -4px black;
+    align-items: center;
+}
 
 p.copyright {
         width: 100%;
