@@ -1,6 +1,6 @@
 import { createElement, randomNr, makeReq, removeElementById } from "./logic.js"
 import { createResultsPage, gamedone } from "./main.js"
-import { botGuess, checkBotGuess } from "./bot.js"
+import { botGuess, checkBotGuess, resetBotGuess } from "./bot.js"
 
 
 //Some global variables to keep track of things
@@ -163,6 +163,7 @@ function nextSetBtn(nrOfRounds, roundTime) {
         nextSetBtn.addEventListener("click", () => {
             lockGuess()
             ifwin()
+            resetBotGuess()
             nextSetBtnWrap.innerHTML = null
             rounds(nrOfRounds, roundTime)   
             correctAnswer = randomNr(1, 20)

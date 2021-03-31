@@ -15,7 +15,7 @@ let botArray = [{
     img: ".././assets/turkos",
     guess: ""
 }]
-
+//RENSA BOTINFO VID NYTT SET
 
 export function renderBot(amount) {    
     for(let i = 0; i < amount; i++) {
@@ -30,7 +30,7 @@ export function renderBot(amount) {
     }
 
 }
- 
+//VISA DENNA!!!
 export function botGuess(correctAnswer) {
     let player = JSON.parse(sessionStorage.getItem("player"))
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
@@ -59,24 +59,23 @@ export function botGuess(correctAnswer) {
             }
             //Smartbot
             else if(i == 2) {
+
                 if(correctAnswer < botInfo[i].guess) {
-                    console.log("NUMBERS***************", numberArray)
-                    console.log("pickedNumbers*************", pickedNumbers)
                     
                     pickedNumbers.forEach(number => {            
                         numberArray = numberArray.filter(item => item !== number)       
                     }); 
-                    botGuess = numberArray[randomNr(0, botInfo[i].guess)]  
+                    let finalArray = numberArray.filter(item => item < botInfo[i].guess)
+                    botGuess = finalArray[Math.floor(Math.random() * finalArray.length)]  
                     addNumberToLocalArray(botGuess)
                 }
                 else if(correctAnswer > botInfo[i].guess) {
-                    console.log("NUMBERS***************", numberArray)
-                    console.log("pickedNumbers*************", pickedNumbers)
-                          
+                           
                     pickedNumbers.forEach(number => {
                         numberArray = numberArray.filter(item => item !== number)   
                     });  
-                    botGuess = numberArray[randomNr(botInfo[i].guess, numberArray.length)]
+                    let finalArray = numberArray.filter(item => item > botInfo[i].guess)
+                    botGuess = finalArray[Math.floor(Math.random() * finalArray.length)]  
                     addNumberToLocalArray(botGuess)
                 }
             }
@@ -129,6 +128,14 @@ async function botInteraction(correctAnswer) {
 
 }
 
+export function resetBotGuess() {
 
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
+    for (let i = 0; i < botInfo.length; i++) {
+        botInfo[i].guess = ""
+    }
+    sessionStorage.setItem("botInfo", JSON.stringify(botInfo))
+
+}
 
 
