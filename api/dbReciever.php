@@ -7,9 +7,24 @@ try {
  
     
         if ($_SERVER["REQUEST_METHOD"] == "GET") { //IF METHOD = GET
+            if(isset($_GET["result"])) {
+                $db = new dbRepo();
+                echo json_encode($db->fetchUserScore($_GET["result"]));  
+ 
+                /* echo json_encode("asdsd"); */
+ 
+            }
+
+            else if(isset($_GET["top50"])) {
+                $db = new dbRepo();
+                echo json_encode($db->get50());
+            }
+
+            else {
+                $db = new dbRepo();
+                echo json_encode($db->getDb());
+            }
             
-            $db = new dbRepo();
-            echo json_encode($db->getDb());
        
         }
         else if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,9 +33,8 @@ try {
             
 
             $db = new dbRepo();
-            $db->insertIntoDb($playerInfo[1], $playerInfo[0]);   //mata in highscore från avslutat spel
-            echo json_encode($playerInfo[0]);  
-            
+            echo json_encode($db->insertIntoDb($playerInfo[1], $playerInfo[0]));   //mata in highscore från avslutat spel
+          
         } 
     }
 }

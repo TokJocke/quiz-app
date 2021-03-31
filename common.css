@@ -1,21 +1,34 @@
 * {
     box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 body {
     background-color: coral;
     margin: 0;
+    overflow-x: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0px;
 }
 
 /* Header content */
 
 .header {
-    height: 50px;
+    height: 8vh;
     background-color: white;
     display: flex;
     justify-content: space-between;
     margin: 0;
-    box-shadow: 0 9px 5px -4px black;
+    box-shadow: 0 9px 15px -4px black;
+}
+
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #logo {
@@ -32,6 +45,25 @@ body {
     
 }
 
+.resultWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resultWrap > p {
+    font-size: 2em;
+    animation: colorchange 0.5s;
+    animation-iteration-count: infinite;}
+
+.resultBtnDiv {
+    font-size: 0.7em;
+    width: 35vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 /* GamePage */
 
@@ -39,10 +71,11 @@ body {
     background-color: lightgreen;
     color: white;
     height: 70px;
-    width: 170px;
+    width: 80%;
+    max-width:600px;
     margin-top: 30px;
     border: none;
-    font-size: 25px;
+    font-size:2.5em;
     border-radius: 15px;
     opacity: 0.7;
 
@@ -60,26 +93,75 @@ body {
     align-items: center;
     width: 100%;
     flex-direction: column;
-    height: 60vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    /* height: 40vh; */
+}
+
+#mySelect {
+    background-color: lightgreen;
+    height: 50px;
+    width:80%;
+    max-width:600px;
+    border-radius: 15px;
+    opacity: 0.7;
+    font-size:1.5em;
+    font-weight: bold;
+    padding-left: 10px;
+    color:white;
 }
 
 
 .playerDiv {
     display: flex;
+    width: 90%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .playerInput {
-    width: 90%;
+    width: 70%;
+    width: 100%;
     height: 7vh;
     font-size: 1.5rem;
     margin-top: 40px;
+    border-radius: 15px;
+    background-color: whitesmoke;
 }
 
-.confirmBtn {
+.actionDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
+.setAndRoundDiv {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+   
+
+}
+
+.setAndRoundDiv p {
+    font-size: 1.2rem;
+    
+}
+
+
+
+.timer, .currentRound, .highOrLow, .pointCounter, .setCounter {
+    font-size: 2rem;
+    
+}
+
+.timer, .highOrLow {
+    margin: 0.25em;
+    font-size: 1.5rem;
 }
 
 .pointCounter {
@@ -87,17 +169,17 @@ body {
 }
 
 .timer {
-    font-size: 2rem;
-}  
+/*     font-size: 2rem;
+ */}  
 
 .currentRound {
-    font-size: 20px;
-    
+/*     font-size: 20px;
+ */    
 }
 
 .highOrLow{
-    font-size: 20px;
-    
+/*     font-size: 50px;
+ */    
 }
 
 
@@ -108,7 +190,7 @@ body {
     background-color: white;
     color: black;
     padding: 16px;
-    font-size: 16px;
+    font-size: 1.5em;
     border: none;
     cursor: pointer;
     width: 10vw;
@@ -160,15 +242,19 @@ body {
   .show {display: block;}
 
 /* BOT */
+.botWrap {
+    display: flex;
+    width: 100%;
+    margin-bottom: 0.5vh;
+}
 
 .botDiv {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    border: 1px solid black;
+    align-items: center;
+    left: 0;
     height: 10vh;
-    margin-bottom: 2vh;
+    margin: 0 0 2vh 10vh;
 
 }
 
@@ -177,38 +263,121 @@ body {
     height: 100%;
 }
 
+.botTextChoice {
+    font-size: 2rem;
+}
+
 .botImg {
 
+}
+
+
+.nextSetBtn {
+    background-color: lightgreen;
+    color: white;
+    height: 50px;
+    width: 130px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    font-size: 20px;
+    border-radius: 15px;
+    opacity: 0.7;
+} 
+
+.nextSetBtn:hover {
+    opacity:1;
+    cursor: pointer;
+    animation: bounce 0.5s;
+}
+#highscoreDiv {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+#highscoreDiv > button {
+    width: 10vw;
+    display: flex;
+    margin: 3px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgreen;
+    color: black;
+    height: 25px;
+    width: 150px;
+    border: none;
+    font-size: 15px;
+    border-radius: 15px;
+    opacity: 0.4;
+    cursor: pointer;
 }
 
 
   @media only screen and (max-width: 650px) {
     .dropbtn {
       width: 25vw;
+      font-size: 1em;
     }
     .dropdown-content {
         left: -75vw;
         width: 100vw;
         height: 50vh;
     }
+    .nextSetBtn {
+        background-color: lightgreen;
+        color: white;
+        height: 7vh;
+        width: 60vw;
+
+        margin: 0.5em 0 1em 0;
+        border: none;
+        font-size: 25px;
+        border-radius: 15px;
+        opacity: 0.7;
+    }
+    
+    .playerInput {
+        width: 60vw;
+        height: 9vh;
+        font-size: 0.95rem;
+        margin-top: 40px;
+        border-radius: 15px;
+        background-color: whitesmoke;
+    }
+/*     #mySelect {
+        width: 50vw;
+    } */
   }
 
   .levelCheck{
       margin-top:20px;
-      width: 100%;
+      width: 80%;
+      max-width:600px;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      align-items: center;
+      justify-content:space-between;
   }
+
+  .easyDiv,.normalDiv,.hardDiv{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  }
+  
   .levelInput{
-      width:20px;
-      height:20px;
-      margin:8px;
+      width:2em;
+      height:2em;
+      /*/* margin:8px; */ 
+      /* font-size: 50px; */
+      
   }
   .checkTitle{
-      margin-top: 0px;
-      margin-right: 10px;
-      font-size: 2em;
+      font-size: 1.5em;
       font-family: Arial, Helvetica, sans-serif;
   }
   .loggadiv{
@@ -223,3 +392,49 @@ body {
       margin-left:1vw;
       object-fit: contain;
   }
+
+
+ footer {
+    position: fixed;
+    display: flex;
+    left: 0;
+    bottom: 0;
+    height: 5vh;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -5px 15px -4px black;
+    align-items: center;
+}
+
+p.copyright {
+        width: 100%;
+        text-align: center;
+    }
+
+  .endgame{
+    top:200px;
+    margin:10px;
+    position:fixed;
+    justify-content:center;
+    width:290px;
+    height:80px;
+    background-color: rgb(230, 96, 48);
+    box-shadow: 0 9px 20px -5px black;
+    border-radius: 25px;
+    animation:goDown 2.0s;
+  }
+  .winbox{
+      display:flex;
+      justify-content: center;
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-weight: bold;
+      width:100%;
+      padding:5px;
+      font-size: 2.5em;
+      animation: colorchange 1.0s;
+      animation-iteration-count: infinite;
+  }
+
+  .resultWrap > p {
+    font-size: 1.5em;
+    }

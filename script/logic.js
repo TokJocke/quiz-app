@@ -38,11 +38,29 @@ export function getCheckedRadio() {
                 level: levelInput[i].value,
                 set: 3
             }
-            console.log(player)
             sessionStorage.setItem("player", JSON.stringify(player))
 
         }
     }
-
-
 }
+
+export function removeElementById(myId){	
+	var elem = document.getElementById(myId)
+	elem.parentNode.removeChild(elem);	
+} 
+
+export function addNumberToLocalArray(number) {
+    let pickedNumbers = JSON.parse(sessionStorage.getItem("pickedNumbers"))
+    let numberArray
+    if(!pickedNumbers) {
+        numberArray = []
+        numberArray.push(number)
+    }
+    else {
+        numberArray = pickedNumbers
+        numberArray.push(number)
+
+    }
+    sessionStorage.setItem("pickedNumbers", JSON.stringify(numberArray))
+}
+

@@ -1,4 +1,4 @@
-import { createElement, randomNr } from "./logic.js"
+import { createElement, randomNr, addNumberToLocalArray } from "./logic.js"
 
 let botArray = [{
     name: "gulBot",
@@ -15,12 +15,13 @@ let botArray = [{
     img: ".././assets/turkos",
     guess: ""
 }]
-
+//RENSA BOTINFO VID NYTT SET
 
 export function renderBot(amount) {    
     for(let i = 0; i < amount; i++) {
         let main = document.getElementsByTagName("main")[0]
-        let botDiv = createElement("div", "botDiv", main)
+        let botWrap = createElement("div", "botWrap", main)
+        let botDiv = createElement("div", "botDiv", botWrap)
         let botImgDiv = createElement("div", "botImgDiv", botDiv)
         let botImg = createElement("img", "botImg", botImgDiv)
         let botTextResponse = createElement("p", "botTextResponse", botDiv)
@@ -29,26 +30,74 @@ export function renderBot(amount) {
     }
 
 }
- 
+//VISA DENNA!!!
 export function botGuess(correctAnswer) {
     let player = JSON.parse(sessionStorage.getItem("player"))
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
+    let pickedNumbers = JSON.parse(sessionStorage.getItem("pickedNumbers"))
+    let numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
     for(let i = 0; i < player.level; i++) {
-        let botGuess = randomNr(1, 20)
+        //Settings for dumb bot
+        let botGuess
+        if(botInfo) {
+            //dumbbot
+            if(i == 0) {
+                botGuess = randomNr(1, 20)
+                addNumberToLocalArray(botGuess)
+            }
+            //Mediumbot
+            else if(i == 1) {
+                if(correctAnswer < botInfo[i].guess) {
+                    botGuess = randomNr(1, botInfo[i].guess--)
+                    addNumberToLocalArray(botGuess)
+                }
+                else if(correctAnswer > botInfo[i].guess) {
+                    botGuess = randomNr(botInfo[i].guess++, 20)
+                    addNumberToLocalArray(botGuess)
+                }
+            }
+            //Smartbot
+            else if(i == 2) {
+
+                if(correctAnswer < botInfo[i].guess) {
+                    
+                    pickedNumbers.forEach(number => {            
+                        numberArray = numberArray.filter(item => item !== number)       
+                    }); 
+                    let finalArray = numberArray.filter(item => item < botInfo[i].guess)
+                    botGuess = finalArray[Math.floor(Math.random() * finalArray.length)]  
+                    addNumberToLocalArray(botGuess)
+                }
+                else if(correctAnswer > botInfo[i].guess) {
+                           
+                    pickedNumbers.forEach(number => {
+                        numberArray = numberArray.filter(item => item !== number)   
+                    });  
+                    let finalArray = numberArray.filter(item => item > botInfo[i].guess)
+                    botGuess = finalArray[Math.floor(Math.random() * finalArray.length)]  
+                    addNumberToLocalArray(botGuess)
+                }
+            }
+        }
+        else {
+            botGuess = randomNr(1, 20)
+            addNumberToLocalArray(botGuess)
+
+        }
         botArray[i].guess = botGuess
-        console.log(botGuess)
     }
     sessionStorage.setItem("botInfo", JSON.stringify(botArray))
     botInteraction(correctAnswer)
 }
+
  
-export function checkGuess(correctAnswer) {
+export function checkBotGuess(correctAnswer) {
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))    
     let player = JSON.parse(sessionStorage.getItem("player"))
 
-    console.log(botInfo)
     for(let i = 0; i < player.level; i++){
         if(botInfo[i].guess == correctAnswer) {
-            console.log("in checkGuess()")
             return true
         }
     }
@@ -59,7 +108,6 @@ async function botInteraction(correctAnswer) {
     let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
     let player = JSON.parse(sessionStorage.getItem("player"))
 
-    console.log(botInfo)
     const timer = ms => new Promise(res => setTimeout(res, ms))
         for (var i = 0; i < player.level; i++) {
             
@@ -76,145 +124,17 @@ async function botInteraction(correctAnswer) {
 
 }
 
+export function resetBotGuess() {
 
-
-
-
-
-/*  
-export function botCheckGuess() {
-   // for(let i = 0; i < amount; i++) {
-            let botTextChoice = document.getElementsByClassName("botTextChoice")[i]
-            let botTextResponse = document.getElementsByClassName("botTextResponse")[i]
-            botTextChoice.innerText = botGuess
-
-            if(botGuess == correctAnswer) {
-                botTextResponse.innerText = "Winner"
-                return true
-            }
-            else if(botGuess < correctAnswer) {
-              
-                botTextResponse.innerText = "higher"
-                return false
-            }
-            else if(botGuess > correctAnswer) {
-            
-                botTextResponse.innerText = "lower"
-                return false
-            }
-}
- */
-
-
-
-            /*             if(checkBotGuess(correctAnswer, botGuess) == "winner") {
-                botTextResponse.innerText = "WINNER"
-                return true
-            }
-            else if(checkBotGuess(correctAnswer, botGuess) == "higher") {
-                botTextResponse.innerText = "higher"
-                return false
-            }
-            else if(checkBotGuess(correctAnswer, botGuess) == "lower") {
-                botTextResponse.innerText = "lower"
-                return false
-            } */
-            //   }
-    
-        
-        
-/*         
-function checkBotGuess(correctAnswer, botGuess) {
-
-    
-    if(botGuess == correctAnswer) {
-    
-        return "winner"
+    let botInfo = JSON.parse(sessionStorage.getItem("botInfo"))
+    let player = JSON.parse(sessionStorage.getItem("player"))
+    if(botInfo) {
+        for (let i = 0; i < player.level; i++) {
+            botInfo[i].guess = ""
+        }
+        sessionStorage.setItem("botInfo", JSON.stringify(botInfo))
     }
-    else if(botGuess < correctAnswer) {
 
-        return "higher"
-    }
-    else if(botGuess > correctAnswer) {
-     
-        return "lower"
-    }
 }
 
 
-
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* export function botInteraction(correctAnswer, amount) {
-    console.log("botInteraction running")
-    
-    for(let i = 0; i < amount; i++) {
-        
-        let botTextResponse = document.getElementsByClassName("botTextResponse")
-        let botImg = document.getElementsByClassName("botImg")
-        let choice = botChoice(correctAnswer)
-        
-
-
-        if (choice == true) {
-            botTextResponse[i].innerText = "winner"
-        }
-
-        else if (choice == "higher") {
-
-            botImg.src = botArray[i].img + "-titta.png"
-            botTextChoice[i].innerText = curren
-            botTextResponse[i].innerText = choice
-        }
-
-        else if (choice == "lower"){
-            botImg.src = botArray[i].img + "-forvarnad.png"
-            botTextResponse[i].innerText = choice
-
-        }
-
-        else {
-            console.log("error")
-        }
-        
-    }
-}
-
-function botChoice(correctAnswer) {
-    console.log("botChoice running")
-    
-    
-    let botChoice = randomNr(1, 20)
-
-
-
-
-    if(botChoice == correctAnswer) {
-              
-       
-        return true
-    }
-    else if(botChoice < correctAnswer) {
-   
-        return "higher"
-    }
-    else if(botChoice > correctAnswer) {
-
-
-        return "lower"
-    } 
-} */
