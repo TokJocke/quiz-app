@@ -27,11 +27,7 @@ export function createGamePage() {
     let main = document.getElementsByTagName("main")[0]
     main.innerHTML = null
     let playerDiv = createElement("div", "playerDiv", main)
-    
-    
-    /*     let confirmBtn = createElement("button", "confirmBtn", playerDiv)
-    */    
-   
+     
     let playerInput = createElement("input", "playerInput", playerDiv)
 
     let actionDiv = createElement("div", "actionDiv", playerDiv)
